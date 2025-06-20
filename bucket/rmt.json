@@ -9,9 +9,6 @@
       "hash": "sha256:24540c49cc7f700c084a30549e2f9206bee03804ec79aed1c113df2659a247c5"
     }
   },
-  "pre_install": [
-    "New-Item -Path \"$dir\" -Name \"Setting\" -ItemType \"directory\" -Force | Out-Null"
-  ],
   "bin": "RMT.exe",
   "shortcuts": [
     ["RMT.exe", "RMT"]
