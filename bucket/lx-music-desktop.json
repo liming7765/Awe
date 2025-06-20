@@ -21,11 +21,15 @@
         "url": "https://api.github.com/repos/lyswhut/lx-music-desktop/releases/latest",
         "regex": "\"tag_name\": \"v([\\d.]+)\""
     },
-    "autoupdate": {
-        "architecture": {
-            "64bit": {
-                "url": "https://github.com/lyswhut/lx-music-desktop/releases/download/v$version/lx-music-desktop-v$version-win_x64-green.7z"
-            }
-        }
+ "autoupdate": {
+    "architecture": {
+      "64bit": {
+        "url": "https://github.com/lyswhut/lx-music-desktop/releases/download/v$version/lx-music-desktop-v$version-win_x64-green.7z" 
+      }
+    },
+    "hash": {
+      "url": "https://github.com/lyswhut/lx-music-desktop/releases/download/v$version/sha256sums.txt", 
+      "regex": "^([a-fA-F0-9]{64})\\s+lx-music-desktop-v$version-win_x64-green\\.7z$"
     }
+  }
 }
