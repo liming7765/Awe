@@ -1,11 +1,11 @@
 {
   "version": "1.0.5",
   "description": "RMT is a free open source keystroke macro tool based on AutoHotkey v2, supports recording and playback of keystroke, mouse and joystick macros, integrates picture, color and text recognition functions, suitable for game support and office efficiency enhancement.",
-  "homepage": "https://github.com/zclucas/RMT", 
+  "homepage": "https://github.com/zclucas/RMT",
   "license": "MIT",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.5/RMTv1.0.5.zip", 
+      "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.5/RMTv1.0.5.zip",
       "hash": "sha256:24540c49cc7f700c084a30549e2f9206bee03804ec79aed1c113df2659a247c5"
     }
   },
@@ -20,17 +20,17 @@
     "Setting"
   ],
   "checkver": {
-    "url": "https://api.github.com/repos/zclucas/RMT/releases/latest", 
+    "url": "https://api.github.com/repos/zclucas/RMT/releases/latest",
     "regex": "\"tag_name\": \"RMTv([\\d.]+)\""
   },
   "autoupdate": {
     "architecture": {
       "64bit": {
-        "url": "https://github.com/zclucas/RMT/releases/download/RMTv$version/RMTv$version.zip" 
+        "url": "https://github.com/zclucas/RMT/releases/download/RMTv$version/RMTv$version.zip"
       }
     },
     "hash": {
-      "url": "https://github.com/zclucas/RMT/releases/download/RMTv$version/sha256sums.txt", 
+      "url": "https://github.com/zclucas/RMT/releases/download/RMTv$version/sha256sums.txt",
       "regex": "^(\\w+)\\s+RMTv[\\d.]+\\.zip$",
       "type": "sha256"
     }
