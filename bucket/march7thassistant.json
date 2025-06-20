@@ -1,0 +1,49 @@
+{
+    "##": [
+        "Scoop manifest for March7thAssistant, supports portable mode with persistent config.yaml and settings folder",
+        "autoupdate.hash configured for GitHub auto-generated SHA256 checksums (verify sha256sums.txt URL and format)"
+    ],
+    "version": "2025.6.14",
+    "description": "Honkai: Star Rail automation tool",
+    "homepage": "https://moesnow.github.io/March7thAssistant/",
+    "license": "GPL-3.0-or-later",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/moesnow/March7thAssistant/releases/download/v2025.6.14/March7thAssistant_full.7z",
+            "hash": "b91984076a0be1d304c0e8c4c17551c8c5b04e2d651eeae2d8d0ca924069c170",
+            "extract_dir": "March7thAssistant_full"
+        }
+    },
+    "bin": "March7th Launcher.exe",
+    "shortcuts": [
+        ["March7th Launcher.exe", "March7th Launcher"]
+    ],
+    "pre_install": [
+        "New-Item -Path \"$dir\\config.yaml\" -ItemType File -Force -ErrorAction SilentlyContinue | Out-Null"
+    ],
+    "post_install": [
+        "Write-Host 'Portable mode enabled. Configuration stored in ''config.yaml'' and ''settings'' folder.'"
+    ],
+    "persist": [
+        "config.yaml",
+        "settings",
+        "logs"
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/moesnow/March7thAssistant/releases/latest",
+        "regex": "\"tag_name\":\\s*(\\d+\\.\\d+\\.\\d+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/moesnow/March7thAssistant/releases/download/v$version/March7thAssistant_full.7z",
+                "extract_dir": "March7thAssistant"
+            }
+        },
+        "hash": {
+            "url": "https://github.com/moesnow/March7thAssistant/releases/download/v$version/sha256sums.txt",
+            "regex": "^(\\w+)\\s+March7thAssistant_full\\.7z$",
+            "type": "sha256"
+        }
+    }
+}
