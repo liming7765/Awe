@@ -1,0 +1,74 @@
+{
+    "##": [
+        "Scoop manifest for Ollama, a tool to run large language models locally",
+        "Persists .ollama folder for model storage in Scoop's persist directory (D:\\Applications\\Scoop\\persist\\ollama-full\\.ollama)",
+        "Sets OLLAMA_MODELS environment variable to $dir\\.ollama (D:\\Applications\\Scoop\\apps\\ollama-full\\current\\.ollama)",
+        "autoupdate.hash configured for GitHub SHA256 checksums (verify sha256sum.txt URL and format)"
+    ],
+    "version": "0.9.2",
+    "description": "Run large language models locally with ease",
+    "homepage": "https://ollama.com/",
+    "license": "MIT",
+    "url": "https://github.com/ollama/ollama/releases/download/v0.9.2/OllamaSetup.exe",
+    "hash": "0ae9fbf6443d2599a0081e2afaa97fb3dc828a50b710b1376beef92b0822e7e6",
+    "innosetup": true,
+    "architecture": {
+        "64bit": {
+            "pre_install": [
+                "# Rename 64-bit files (remove ',1.') and remove ARM64 files (',2.')",
+                "Get-ChildItem \"$dir\\*,1.*\" -Recurse | Rename-Item -NewName { $_.FullName -replace ',1\\.', '.' }",
+                "Get-ChildItem \"$dir\\*,2.*\" -Recurse | Remove-Item"
+            ]
+        },
+        "arm64": {
+            "pre_install": [
+                "# Rename ARM64 files (remove ',2.') and remove 64-bit files (',1.')",
+                "Get-ChildItem \"$dir\\*,2.*\" -Recurse | Rename-Item -NewName { $_.FullName -replace ',2\\.', '.' }",
+                "Get-ChildItem \"$dir\\*,1.*\" -Recurse | Remove-Item"
+            ]
+        }
+    },
+    "bin": "ollama.exe",
+    "shortcuts": [
+        ["ollama app.exe", "Ollama", "", "app.ico"]
+    ],
+    "pre_install": [
+        "# Persist .ollama folder",
+        "$ollamaDir = Join-Path $persist_dir '.ollama'",
+        "$targetDir = Join-Path $dir '.ollama'",
+        "if (!(Test-Path $ollamaDir)) { New-Item $ollamaDir -ItemType Directory -Force | Out-Null }",
+        "# Move existing %USERPROFILE%\\.ollama to persist_dir if it exists",
+        "$userOllama = Join-Path $env:USERPROFILE '.ollama'",
+        "if (Test-Path $userOllama -and !(Test-Path $targetDir)) {",
+        "    Move-Item $userOllama $ollamaDir -Force",
+        "}",
+        "# Create junction from $dir\\.ollama to persist_dir\\.ollama",
+        "if (!(Test-Path $targetDir)) {",
+        "    New-Item -Type Junction -Path $targetDir -Target $ollamaDir | Out-Null",
+        "}"
+    ],
+    "pre_uninstall": [
+        "# Ensure .ollama persists and remove environment variable",
+        "$targetDir = Join-Path $dir '.ollama'",
+        "if (Test-Path $targetDir) { Remove-Item $targetDir -Force -ErrorAction SilentlyContinue }"
+    ],
+    "persist": ".ollama",
+    "env_set": {
+        "OLLAMA_MODELS": "$dir\\.ollama"
+    },
+    "env_rm": {
+        "OLLAMA_MODELS": true
+    },
+    "checkver": {
+        "url": "https://api.github.com/repos/ollama/ollama/releases/latest",
+        "regex": "\"tag_name\": \"v?([\\d.]+)\""
+    },
+    "autoupdate": {
+        "url": "https://github.com/ollama/ollama/releases/download/v$version/OllamaSetup.exe",
+        "hash": {
+            "url": "https://github.com/ollama/ollama/releases/download/v$version/sha256sum.txt",
+            "regex": "^(\\w+)\\s+OllamaSetup\\.exe$",
+            "type": "sha256"
+        }
+    }
+}
