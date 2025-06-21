@@ -1,7 +1,7 @@
 {
     "##": [
         "Scoop manifest for Ollama, a tool to run large language models locally",
-        "Persists .ollama folder for model storage in Scoop's persist directory (D:\\Applications\\Scoop\\persist\\ollama-full\\.ollama)",
+        "Stores .ollama folder for model storage in install directory (D:\\Applications\\Scoop\\apps\\ollama-full\\current\\.ollama)",
         "Sets OLLAMA_MODELS environment variable to $dir\\.ollama (D:\\Applications\\Scoop\\apps\\ollama-full\\current\\.ollama)",
         "autoupdate.hash configured for GitHub SHA256 checksums (verify sha256sum.txt URL and format)"
     ],
@@ -33,31 +33,20 @@
         ["ollama app.exe", "Ollama", "", "app.ico"]
     ],
     "pre_install": [
-        "# Persist .ollama folder",
-        "$ollamaDir = Join-Path $persist_dir '.ollama'",
-        "$targetDir = Join-Path $dir '.ollama'",
+        "# Move existing %USERPROFILE%\\.ollama to install directory if it exists",
+        "$ollamaDir = Join-Path $dir '.ollama'",
         "if (!(Test-Path $ollamaDir)) { New-Item $ollamaDir -ItemType Directory -Force | Out-Null }",
-        "# Move existing %USERPROFILE%\\.ollama to persist_dir if it exists",
         "$userOllama = Join-Path $env:USERPROFILE '.ollama'",
-        "if (Test-Path $userOllama -and !(Test-Path $targetDir)) {",
+        "if (Test-Path $userOllama -and !(Test-Path (Join-Path $ollamaDir '*'))) {",
         "    Move-Item $userOllama $ollamaDir -Force",
-        "}",
-        "# Create junction from $dir\\.ollama to persist_dir\\.ollama",
-        "if (!(Test-Path $targetDir)) {",
-        "    New-Item -Type Junction -Path $targetDir -Target $ollamaDir | Out-Null",
         "}"
     ],
     "pre_uninstall": [
-        "# Ensure .ollama persists and remove environment variable",
-        "$targetDir = Join-Path $dir '.ollama'",
-        "if (Test-Path $targetDir) { Remove-Item $targetDir -Force -ErrorAction SilentlyContinue }"
+        "# Remove OLLAMA_MODELS environment variable",
+        "[Environment]::SetEnvironmentVariable('OLLAMA_MODELS', $null, 'User')"
     ],
-    "persist": ".ollama",
     "env_set": {
         "OLLAMA_MODELS": "$dir\\.ollama"
-    },
-    "env_rm": {
-        "OLLAMA_MODELS": true
     },
     "checkver": {
         "url": "https://api.github.com/repos/ollama/ollama/releases/latest",
