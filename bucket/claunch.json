@@ -23,7 +23,8 @@
     ],
     "persist": [
         "Data",
-        "Plugins"
+        "Plugins",
+        "Skins"
     ],
     "checkver": {
         "url": "https://hp.vector.co.jp/authors/VA018351/history_cl.html",
