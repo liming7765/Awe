@@ -38,7 +38,6 @@
     "$ollamaDir = Join-Path $dir '.ollama'",
     "if (!(Test-Path $ollamaDir)) { New-Item $ollamaDir -ItemType Directory -Force | Out-Null }"
   ],
-  "post_install": [],
   "pre_uninstall": [
     "# Remove OLLAMA_MODELS environment variable",
     "[Environment]::SetEnvironmentVariable('OLLAMA_MODELS', $null, 'User')"
