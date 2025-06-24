@@ -19,10 +19,12 @@
         ["March7th Launcher.exe", "March7th Launcher"]
     ],
     "pre_install": [
-        "if (!(Test-Path \"$dir\\config.yaml\")) { New-Item -Path \"$dir\\config.yaml\" -ItemType File -Force | Out-Null }",
-        "if (!(Test-Path \"$dir\\warp.json\")) { New-Item -Path \"$dir\\warp.json\" -ItemType File -Force | Out-Null }"
+        "New-Item -Path \"$dir\\config.yaml\" -ItemType File -Force -ErrorAction SilentlyContinue | Out-Null",
+        "New-Item -Path \"$dir\\warp.json\" -ItemType File -Force -ErrorAction SilentlyContinue | Out-Null"
     ],
     "post_install": [
+        "if (Test-Path \"$dir\\config.yaml.original\") { Remove-Item \"$dir\\config.yaml.original\" }",
+        "if (Test-Path \"$dir\\warp.json.original\") { Remove-Item \"$dir\\warp.json.original\" }",
         "Write-Host 'Portable mode enabled. Configuration stored in ''config.yaml'' and ''settings'' folder.'"
     ],
     "persist": [
