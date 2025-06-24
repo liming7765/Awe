@@ -26,6 +26,7 @@
     ],
     "persist": [
         "config.yaml",
+        "warp.json",
         "settings",
         "logs"
     ],
