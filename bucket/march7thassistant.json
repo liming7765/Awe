@@ -19,8 +19,10 @@
         ["March7th Launcher.exe", "March7th Launcher"]
     ],
     "pre_install": [
-        "New-Item -Path \"$dir\\config.yaml\" -ItemType File -Force -ErrorAction SilentlyContinue | Out-Null",
-        "New-Item -Path \"$dir\\warp.json\" -ItemType File -Force -ErrorAction SilentlyContinue | Out-Null"
+        "New-Item -Path \"$dir\\config.yaml\" -ItemType File -Force | Out-Null",
+        "New-Item -Path \"$dir\\.scoop-persist.config.yaml\" -ItemType File -Force | Out-Null",
+        "New-Item -Path \"$dir\\warp.json\" -ItemType File -Force | Out-Null",
+        "New-Item -Path \"$dir\\.scoop-persist.warp.json\" -ItemType File -Force | Out-Null"
     ],
     "post_install": [
         "Write-Host 'Portable mode enabled. Configuration stored in ''config.yaml'' and ''settings'' folder.'"
