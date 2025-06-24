@@ -15,7 +15,11 @@
             "Gopeed"
         ]
     ],
-    "persist": [".extensions", "gopeed.db", "logs"],
+    "persist": [
+        "gopeed.db",
+        ".extensions",
+        "logs"
+    ],
     "checkver": "github",
     "autoupdate": {
         "architecture": {
