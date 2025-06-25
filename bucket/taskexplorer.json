@@ -1,0 +1,64 @@
+{
+    "##": [
+        "Scoop manifest for TaskExplorer, an advanced task manager with detailed process monitoring",
+        "Persists TaskExplorer.ini in config directory for portable mode",
+        "autoupdate.hash configured for GitHub auto-generated SHA256 checksums (verify sha256sums.txt URL and format)"
+    ],
+    "version": "1.6.4",
+    "description": "Advanced task manager tool focused on detailed application monitoring",
+    "homepage": "https://github.com/DavidXanatos/TaskExplorer",
+    "license": "GPL-3.0-only",
+    "url": "https://github.com/DavidXanatos/TaskExplorer/releases/download/v1.6.4/TaskExplorer-v1.6.4.exe",
+    "hash": "887148bc166eadc6c13bc8e2870b16a99d8e8f67a8c2101e7a404713548a0495",
+    "innosetup": true,
+    "architecture": {
+        "64bit": {
+            "extract_dir": "x64"
+        },
+        "32bit": {
+            "extract_dir": "x86"
+        },
+        "arm64": {
+            "extract_dir": "ARM64"
+        }
+    },
+    "bin": "TaskExplorer.exe",
+    "shortcuts": [
+        ["TaskExplorer.exe", "Task Explorer"]
+    ],
+    "pre_install": [
+        "$configPath = Join-Path $persist_dir 'TaskExplorer.ini'",
+        "$destPath = Join-Path $dir 'TaskExplorer.ini'",
+        "if (Test-Path $configPath) {",
+        "    if (Test-Path $destPath) { Remove-Item $destPath -Force -ErrorAction SilentlyContinue }",
+        "    Copy-Item $configPath $destPath -Force -ErrorAction SilentlyContinue",
+        "}"
+    ],
+    "post_install": [
+        "if (Test-Path \"$dir\\TaskExplorer.ini.original\") { Remove-Item \"$dir\\TaskExplorer.ini.original\" -Force -ErrorAction SilentlyContinue }"
+    ],
+    "persist": "TaskExplorer.ini",
+    "checkver": {
+        "url": "https://api.github.com/repos/DavidXanatos/TaskExplorer/releases/latest",
+        "regex": "\"tag_name\": \"(?:v)?([\\d.]+)\""
+    },
+    "autoupdate": {
+        "url": "https://github.com/DavidXanatos/TaskExplorer/releases/download/v$version/TaskExplorer-v$version.exe",
+        "architecture": {
+            "64bit": {
+                "extract_dir": "x64"
+            },
+            "32bit": {
+                "extract_dir": "x86"
+            },
+            "arm64": {
+                "extract_dir": "ARM64"
+            }
+        },
+        "hash": {
+            "url": "https://github.com/DavidXanatos/TaskExplorer/releases/download/v$version/sha256sums.txt",
+            "regex": "^(\\w+)\\s+TaskExplorer-v\\$version\\.exe$",
+            "type": "sha256"
+        }
+    }
+}
