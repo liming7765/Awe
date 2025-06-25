@@ -15,8 +15,24 @@
             "Gopeed"
         ]
     ],
+        "pre_install": [
+        "$configPath = Join-Path $persist_dir 'config\\gopeed.db'",
+        "$destPath = Join-Path $dir 'gopeed.db'",
+        "if (Test-Path $configPath) { Copy-Item $configPath $destPath -Force -ErrorAction SilentlyContinue }"
+    ],
+    "post_install": [
+        "$iniPath = Join-Path $dir 'gopeed.db'",
+        "if (!(Test-Path $iniPath)) { New-Item $iniPath -ItemType File -Force | Out-Null }"
+    ],
+    "pre_uninstall": [
+        "$configDir = Join-Path $persist_dir 'config'",
+        "$iniPath = Join-Path $dir 'gopeed.db'",
+        "$destPath = Join-Path $configDir 'gopeed.db'",
+        "if (!(Test-Path $configDir)) { New-Item $configDir -ItemType Directory -Force | Out-Null }",
+        "if (Test-Path $iniPath) { Copy-Item $iniPath $destPath -Force -ErrorAction SilentlyContinue }"
+    ],
     "persist": [
-        "gopeed.db",
+        "config",
         ".extensions",
         "logs"
     ],
