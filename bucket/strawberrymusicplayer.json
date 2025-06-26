@@ -1,0 +1,71 @@
+{
+    "version": "1.2.11",
+    "description": "A music player and music collection organizer (MSVC build)",
+    "homepage": "https://www.strawberrymusicplayer.org/",
+    "license": "GPL-3.0-only",
+    "architecture": {
+        "64bit": {
+            "url": "https://codeberg.org/WetOtter44/StrawberryMusicPlayer/releases/download/1.2.11/StrawberrySetup-1.2.11-msvc-x64.exe#/dl.7z",
+            "hash": "SHA256:04c490743b59e6a26992547722f254c2008bb7952da12dd11be3863718113254"
+        },
+        "32bit": {
+            "url": "https://codeberg.org/WetOtter44/StrawberryMusicPlayer/releases/download/1.2.11/StrawberrySetup-1.2.11-msvc-x86.exe#/dl.7z",
+            "hash": "SHA256:d8ec1abb802ea691f57c6090ee5aa67e5653b4e3a1c04c668f0408d882088214"
+        },
+        "arm64": {
+            "url": "https://codeberg.org/WetOtter44/StrawberryMusicPlayer/releases/download/1.2.11/StrawberrySetup-1.2.11-msvc-arm64.exe#/dl.7z",
+            "hash": "SHA256:bb0d49baceb0e60efdf042815cccaea464f7c551e267098f603a142cf31c8587"
+        }
+    },
+    "bin": "strawberry.exe",
+    "shortcuts": [
+        ["strawberry.exe", "Strawberry Music Player"]
+    ],
+    "installer": {
+        "script": [
+            "# Delete Inno Setup plugin directory",
+            "$pluginDir = Join-Path $dir '$PLUGINSDIR'",
+            "if (Test-Path $pluginDir) { Remove-Item $pluginDir -Recurse -Force -ErrorAction SilentlyContinue }",
+            "$tempDir = Join-Path $dir '$TEMP'",
+            "if (Test-Path $tempDir) { Remove-Item $tempDir -Recurse -Force -ErrorAction SilentlyContinue }"
+        ]
+    },
+    "post_install": [
+        "# Migrate AppData\\Local\\Strawberry\\Strawberry to persist directory",
+        "$sourceDir = Join-Path $env:LocalAppData 'Strawberry\\Strawberry'",
+        "$destDir = Join-Path $persist_dir 'Strawberry'",
+        "if (Test-Path $sourceDir) {",
+        "    Write-Host 'Moving Strawberry configs to persist directory...' -ForegroundColor Green",
+        "    if (!(Test-Path $destDir)) { New-Item -Path $destDir -ItemType Directory -Force | Out-Null }",
+        "    Copy-Item -Path \"$sourceDir\\*\" -Destination $destDir -Force -Recurse | Out-Null",
+        "}"
+    ],
+    "persist": [
+        "Strawberry"
+    ],
+    "notes": [
+        "Strawberry Music Player (MSVC build) requires Microsoft Visual C++ 2015-2022 Runtime (x64).",
+        "Please download and install it manually from: https://learn.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist"
+    ],
+    "checkver": {
+        "url": "https://codeberg.org/WetOtter44/StrawberryMusicPlayer/releases",
+        "regex": "StrawberrySetup-(\\d+\\.\\d+\\.\\d+)-msvc"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://codeberg.org/WetOtter44/StrawberryMusicPlayer/releases/download/$version/StrawberrySetup-$version-msvc-x64.exe#/dl.7z"
+            },
+            "32bit": {
+                "url": "https://codeberg.org/WetOtter44/StrawberryMusicPlayer/releases/download/$version/StrawberrySetup-$version-msvc-x86.exe#/dl.7z"
+            },
+            "arm64": {
+                "url": "https://codeberg.org/WetOtter44/StrawberryMusicPlayer/releases/download/$version/StrawberrySetup-$version-msvc-arm64.exe#/dl.7z"
+            }
+        },
+        "hash": {
+            "url": "$baseurl",
+            "tool": "aria2c"
+        }
+    }
+}
