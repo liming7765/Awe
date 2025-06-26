@@ -1,0 +1,58 @@
+{
+    "version": "25.04.2",
+    "description": "Video editing software based on the MLT Framework, KDE and Qt",
+    "homepage": "https://kdenlive.org",
+    "license": "GPL-2.0-only",
+    "architecture": {
+        "64bit": {
+            "url": "https://download.kde.org/stable/kdenlive/25.04/windows/kdenlive-25.04.2_standalone.exe#/dl.7z",
+            "hash": "86da37aec0bb3dc94483bad9a9e1762b7ebe32de7868f35eb7028546dd6fa4f8"
+        }
+    },
+    "extract_dir": "kdenlive-25.04.2_standalone",
+    "bin": "bin\\kdenlive.exe",
+    "installer": {
+        "script": [
+            "ensure \"$persist_dir\" | Out-Null",
+            "$targetPath = \"$env:APPDATA\\kdenlive\"",
+            "$linkType = (Get-Item -Path $targetPath -ErrorAction SilentlyContinue).LinkType",
+            "if (Test-Path $targetPath) {",
+            "    if ($linkType -eq 'Junction') {",
+            "        Remove-Item -Path $targetPath -Force",
+            "    } else {",
+            "        Get-ChildItem -Path $targetPath -Force | Move-Item -Destination $persist_dir -Force",
+            "        Remove-Item -Path $targetPath -Force -Recurse",
+            "    }",
+            "}",
+            "New-Item \"$env:APPDATA\\kdenlive\" -ItemType Junction -Target \"$persist_dir\" | Out-Null"
+        ]
+    },
+    "pre_uninstall": [
+        "if (!(is_admin)) { error \"$app requires admin rights to $cmd\"; break }",
+        "Start-Process \"$dir\\resources\\uninstall-service.exe\" -Wait -Verb 'RunAs' -WindowStyle 'Hidden'; Start-Sleep -Seconds 3"
+    ],
+    "uninstaller": {
+        "script": "Remove-Item \"$env:APPDATA\\kdenlive\" -Recurse -Force -ErrorAction 'SilentlyContinue'"
+    },
+    "shortcuts": [
+        [
+            "bin\\kdenlive.exe",
+            "Kdenlive"
+        ]
+    ],
+    "checkver": {
+        "url": "https://kdenlive.org/download/",
+        "regex": "kdenlive-([\\d\\w.-]+)_standalone\\.exe"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://download.kde.org/stable/kdenlive/$majorVersion.$minorVersion/windows/kdenlive-$version_standalone.exe#/dl.7z"
+            }
+        },
+        "hash": {
+            "url": "$url.sha256"
+        },
+        "extract_dir": "kdenlive-$version_standalone"
+    }
+}
