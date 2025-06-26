@@ -6,15 +6,15 @@
     "architecture": {
         "64bit": {
             "url": "https://codeberg.org/WetOtter44/StrawberryMusicPlayer/releases/download/1.2.11/StrawberrySetup-1.2.11-msvc-x64.exe#/dl.7z",
-            "hash": "SHA256:04c490743b59e6a26992547722f254c2008bb7952da12dd11be3863718113254"
+            "hash": "sha256:04c490743b59e6a26992547722f254c2008bb7952da12dd11be3863718113254"
         },
         "32bit": {
             "url": "https://codeberg.org/WetOtter44/StrawberryMusicPlayer/releases/download/1.2.11/StrawberrySetup-1.2.11-msvc-x86.exe#/dl.7z",
-            "hash": "SHA256:d8ec1abb802ea691f57c6090ee5aa67e5653b4e3a1c04c668f0408d882088214"
+            "hash": "sha256:d8ec1abb802ea691f57c6090ee5aa67e5653b4e3a1c04c668f0408d882088214"
         },
         "arm64": {
             "url": "https://codeberg.org/WetOtter44/StrawberryMusicPlayer/releases/download/1.2.11/StrawberrySetup-1.2.11-msvc-arm64.exe#/dl.7z",
-            "hash": "SHA256:bb0d49baceb0e60efdf042815cccaea464f7c551e267098f603a142cf31c8587"
+            "hash": "sha256:bb0d49baceb0e60efdf042815cccaea464f7c551e267098f603a142cf31c8587"
         }
     },
     "bin": "strawberry.exe",
