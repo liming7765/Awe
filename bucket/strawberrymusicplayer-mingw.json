@@ -53,8 +53,7 @@
             }
         },
         "hash": {
-            "url": "$baseurl",
-            "tool": "aria2c"
+            "url": "$baseurl"
         }
     }
 }
