@@ -12,7 +12,7 @@
     "installer": {
         "script": [
             "ensure \"$persist_dir\" | Out-Null",
-            "$targetPath = \"$env:APPDATA\\FreeFileSynch\"",
+            "$targetPath = \"$env:APPDATA\\FreeFileSync\"",
             "$linkType = (Get-Item -Path $targetPath -ErrorAction SilentlyContinue).LinkType",
             "if (Test-Path $targetPath) {",
             "    if ($linkType -eq 'Junction') {",
