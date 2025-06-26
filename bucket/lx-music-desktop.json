@@ -13,7 +13,7 @@
         "New-Item -Path \"$dir\" -Name \"portable\" -ItemType \"directory\" -Force | Out-Null"
     ],
     "post_install": [
-        "if (Test-Path \"$dir\\portable.original\") { Remove-Item \"$dir\\config.yaml.original\" }",
+        "if (Test-Path \"$dir\\portable.original\") { Remove-Item \"$dir\\config.yaml.original\" }"
     ],
     "bin": "lx-music-desktop.exe",
     "shortcuts": [
