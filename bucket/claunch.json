@@ -1,13 +1,11 @@
 {
     "##": [
-        "Lacks a mechanism for autoupdate hash checking. Excavator will download the full file to compute hash."
+        "Lacks a mechanism for autoupdate hash checking. Excavator will download the full file to compute hash.",
+        "Alternative homepage (may be unstable): http://pyonkichi.g1.xrea.com/en/claunch.html"
     ],
     "version": "4.10",
     "description": "CLaunch: a skin-customizable button-based program launcher",
-    "homepage": [
-        "http://pyonkichi.g1.xrea.com/en/claunch.html",
-        "https://ss1.xrea.com/pyonkichi.g1.xrea.com/"
-    ],
+    "homepage": "http://ss1.xrea.com/pyonkichi.g1.xrea.com/",
     "license": "Unknown",
     "architecture": {
         "64bit": {
