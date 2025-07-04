@@ -35,7 +35,8 @@
     ],
     "checkver": {
         "url": "https://api.github.com/repos/moesnow/March7thAssistant/releases/latest",
-        "regex": "\"tag_name\":\\s*v?(\\d+\\.\\d+\\.\\d+)"
+        "jsonpath": "$.tag_name",
+        "regex": "(v?\\d+\\.\\d+\\.\\d+)"        
     },
     "autoupdate": {
         "architecture": {
