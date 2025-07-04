@@ -45,7 +45,8 @@
     "persist": "config",
     "checkver": {
         "url": "https://api.github.com/repos/DavidXanatos/TaskExplorer/releases/latest",
-        "regex": "\"tag_name\": \"(?:v)?([\\d.]+)\""
+        "jsonpath": "$.tag_name",
+        "regex": "v?([\\d.]+)"
     },
     "autoupdate": {
         "url": "https://github.com/DavidXanatos/TaskExplorer/releases/download/v$version/TaskExplorer-v$version.exe",
@@ -61,9 +62,9 @@
             }
         },
         "hash": {
-            "url": "https://github.com/DavidXanatos/TaskExplorer/releases/download/v$version/sha256sums.txt",
-            "regex": "^(\\w+)\\s+TaskExplorer-v\\$version\\.exe$",
-            "type": "sha256"
+            "url": "https://api.github.com/repos/DavidXanatos/TaskExplorer/releases/tags/v$version",
+            "jsonpath": "$.assets[?(@.name == 'TaskExplorer-v$version.exe')].digest",
+            "regex": "^sha256:([a-fA-F0-9]{64})$"
         }
     }
 }
