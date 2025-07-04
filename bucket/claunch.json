@@ -11,11 +11,11 @@
     "license": "Unknown",
     "architecture": {
         "64bit": {
-            "url": "https://ss1.xrea.com/pyonkichi.g1.xrea.com/archives/cl64_410.zip",
+            "url": "http://ss1.xrea.com/pyonkichi.g1.xrea.com/archives/cl64_410.zip",
             "hash": "16c7a291d2fceda4942a17bdeef55ae34fd9db781a18e4d43dfcb8f79d13e957"
         },
         "32bit": {
-            "url": "https://ss1.xrea.com/pyonkichi.g1.xrea.com/archives/cl410.exe#/dl.7z",
+            "url": "http://ss1.xrea.com/pyonkichi.g1.xrea.com/archives/cl410.exe#/dl.7z",
             "hash": "08f029a1b5d634200782e44837563148467406a457e55132560824e4d7d4c22b"
         }
     },
@@ -33,16 +33,16 @@
         "Skins"
     ],
     "checkver": {
-        "url": "https://ss1.xrea.com/pyonkichi.g1.xrea.com/",
+        "url": "http://ss1.xrea.com/pyonkichi.g1.xrea.com/",
         "regex": "CLaunch Ver. ([\\d.]+)"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://ss1.xrea.com/pyonkichi.g1.xrea.com/archives/cl64_$cleanVersion.zip"
+                "url": "http://ss1.xrea.com/pyonkichi.g1.xrea.com/archives/cl64_$cleanVersion.zip"
             },
             "32bit": {
-                "url": "https://ss1.xrea.com/pyonkichi.g1.xrea.com/archives/cl$cleanVersion.exe#/dl.7z"
+                "url": "http://ss1.xrea.com/pyonkichi.g1.xrea.com/archives/cl$cleanVersion.exe#/dl.7z"
             }
         }
     }
