@@ -26,7 +26,8 @@
     ],
     "checkver": {
         "url": "https://api.github.com/repos/Scighost/Starward/releases/latest",
-        "regex": "\"tag_name\": \"(?:v)?([\\d.]+)\""
+        "jsonpath": "$.tag_name",
+        "regex": "v?([\\d.]+)"
     },
     "autoupdate": {
         "architecture": {
