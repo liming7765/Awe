@@ -34,7 +34,7 @@
         "logs"
     ],
     "checkver": {
-        "url": "https://api.github.com/repos/moesnow/March7thAssistant/releases/latest",
+        "url": "https://github.com/moesnow/March7thAssistant/releases/latest",
         "regex": "\"tag_name\":\\s*(\\d+\\.\\d+\\.\\d+)"
     },
     "autoupdate": {
