@@ -25,7 +25,8 @@
     ],
     "checkver": {
         "url": "https://api.github.com/repos/lyswhut/lx-music-desktop/releases/latest",
-        "regex": "\"tag_name\": \"v([\\d.]+)\""
+        "jsonpath": "$.tag_name",
+        "regex": "v([\\d.]+)"
     },
     "autoupdate": {
         "architecture": {
@@ -35,9 +36,9 @@
             }
         },
         "hash": {
-            "url": "https://github.com/lyswhut/lx-music-desktop/releases/download/v$version/sha256sums.txt",
-            "regex": "^([a-fA-F0-9]{64})\\s+lx-music-desktop-v\\$version-win_x64-green\\.7z$",
-            "type": "sha256"
+            "url": "https://api.github.com/repos/lyswhut/lx-music-desktop/releases/tags/v$version",
+            "jsonpath": "$.assets[?(@.name == 'lx-music-desktop-v$version-win_x64-green.7z')].digest",
+            "regex": "^sha256:([a-fA-F0-9]{64})$"
         }
     }
 }
