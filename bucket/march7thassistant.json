@@ -11,7 +11,7 @@
         "64bit": {
             "url": "https://github.com/moesnow/March7thAssistant/releases/download/v2025.6.14/March7thAssistant_full.7z",
             "hash": "b91984076a0be1d304c0e8c4c17551c8c5b04e2d651eeae2d8d0ca924069c170",
-            "extract_dir": "March7thAssistant_full"
+            "extract_dir": "March7thAssistant_full" // 保持不变，与当前url的extract_dir一致
         }
     },
     "bin": "March7th Launcher.exe",
@@ -34,18 +34,18 @@
         "logs"
     ],
     "checkver": {
-        "url": "https://github.com/moesnow/March7thAssistant/releases/latest",
-        "regex": "\"tag_name\":\\s*(\\d+\\.\\d+\\.\\d+)"
+        "url": "https://api.github.com/repos/moesnow/March7thAssistant/releases/latest", // 推荐使用API URL
+        "regex": "\"tag_name\":\\s*v?(\\d+\\.\\d+\\.\\d+)" // 修正后的regex
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/moesnow/March7thAssistant/releases/download/v$version/March7thAssistant_full.7z",
-                "extract_dir": "March7thAssistant"
+                "url": "https://github.com/moesnow/March7thAssistant/releases/download/v$version/March7thAssistant_full.7z", // <-- 这里加上了 'v'
+                "extract_dir": "March7thAssistant_full" // <-- 确保与上面 "architecture" 中的 "extract_dir" 保持一致
             }
         },
         "hash": {
-            "url": "https://github.com/moesnow/March7thAssistant/releases/download/v$version/sha256sums.txt",
+            "url": "https://github.com/moesnow/March7thAssistant/releases/download/v$version/sha256sums.txt", // <-- 这里也加上了 'v'
             "regex": "^(\\w+)\\s+March7thAssistant_full\\.7z$",
             "type": "sha256"
         }
