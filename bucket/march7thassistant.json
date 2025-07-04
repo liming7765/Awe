@@ -45,8 +45,8 @@
             }
         },
         "hash": {
-            "url": "https://github.com/moesnow/March7thAssistant/releases/download/v$version/sha256sums.txt",
-            "regex": "^(\\w+)\\s+March7thAssistant_full\\.7z$",
+            "url": "https://github.com/moesnow/March7thAssistant/releases/download/v$version",
+            "jsonpath": "$.assets[?(@.name == 'March7thAssistant_full.7z')].checksums.sha256",
             "type": "sha256"
         }
     }
