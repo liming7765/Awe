@@ -21,7 +21,8 @@
     ],
     "checkver": {
         "url": "https://api.github.com/repos/zclucas/RMT/releases/latest",
-        "regex": "\"tag_name\": \"RMTv([\\d.]+)\""
+        "jsonpath": "$.tag_name",
+        "regex": "RMTv([\\d.]+)"
     },
     "autoupdate": {
         "architecture": {
@@ -30,9 +31,9 @@
             }
         },
         "hash": {
-            "url": "https://github.com/zclucas/RMT/releases/download/RMTv$version/sha256sums.txt",
-            "regex": "^(\\w+)\\s+RMTv[\\d.]+\\.zip$",
-            "type": "sha256"
+            "url": "https://api.github.com/repos/zclucas/RMT/releases/tags/RMTv$version",
+            "jsonpath": "$.assets[?(@.name == 'RMTv$version.zip')].digest",
+            "regex": "^sha256:([a-fA-F0-9]{64})$"
         }
     },
     "notes": "Requires AutoHotkey v2 to be installed."
