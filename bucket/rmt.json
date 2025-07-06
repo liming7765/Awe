@@ -1,24 +1,23 @@
 {
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "RMT is a free open source keystroke macro tool based on AutoHotkey v2, supports recording and playback of keystroke, mouse and joystick macros, integrates picture, color and text recognition functions, suitable for game support and office efficiency enhancement.",
     "homepage": "https://github.com/zclucas/RMT",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.5/RMTv1.0.5.zip",
-            "hash": "sha256:24540c49cc7f700c084a30549e2f9206bee03804ec79aed1c113df2659a247c5"
+            "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.6/RMTv1.0.6.zip",
+            "hash": "b8352eb1291e98b92aebddda0ec209a59fcc50cdec4e8d7a4746191c30d8f7dc"
         }
     },
-    "pre_install": [
-        "if (Test-Path \"$dir\\RMTv$version.exe\") { Rename-Item \"$dir\\RMTv$version.exe\" \"RMT.exe\" }"
-    ],
+    "pre_install": "if (Test-Path \"$dir\\RMTv$version.exe\") { Rename-Item \"$dir\\RMTv$version.exe\" \"RMT.exe\" }",
     "bin": "RMT.exe",
     "shortcuts": [
-        ["RMT.exe", "RMT"]
+        [
+            "RMT.exe",
+            "RMT"
+        ]
     ],
-    "persist": [
-        "Setting"
-    ],
+    "persist": "Setting",
     "checkver": {
         "url": "https://api.github.com/repos/zclucas/RMT/releases/latest",
         "jsonpath": "$.tag_name",
