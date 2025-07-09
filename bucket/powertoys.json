@@ -29,17 +29,17 @@
         ]
     },
     "pre_install": [
-        "ensure \"$persist_dir\" | Out-Null",
         "$targetPath = \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\"",
-        "if (Test-Path $targetPath) {",
-        "    if ((Get-Item -Path $targetPath -ErrorAction SilentlyContinue).LinkType -eq 'Junction') {",
-        "        Remove-Item -Path $targetPath -Force",
-        "    } else {",
-        "        Get-ChildItem -Path $targetPath -Force | Move-Item -Destination $persist_dir -Force",
-        "        Remove-Item -Path $targetPath -Force -Recurse",
-        "    }",
+        "$persistPath = \"$persist_dir\\Settings\"",
+        "ensure $persistPath | Out-Null",
+        "if ((Test-Path $targetPath) -and ((Get-Item $targetPath).LinkType -ne 'Junction')) {",
+        "    Write-Host 'Moving existing PowerToys settings to persistent directory...'",
+        "    Move-Item \"$targetPath\\*\" $persistPath -Force",
+        "    Remove-Item $targetPath -Recurse -Force",
         "}",
-        "New-Item -Path $targetPath -ItemType Junction -Target \"$persist_dir\" | Out-Null"
+        "if (!(Test-Path $targetPath)) {",
+        "    New-Item -ItemType Junction -Path $targetPath -Target $persistPath | Out-Null",
+        "}"
     ],
     "post_install": [
         "'install-context', 'uninstall-context' | ForEach-Object {",
@@ -76,7 +76,7 @@
             "        New-Item -Path $regpath -Force | Out-Null",
             "    }",
             "}",
-            "Remove-Item \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\" -Recurse -Force -ErrorAction 'SilentlyContinue'"
+            "Remove-Item \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\" -Recurse -Force -ErrorAction SilentlyContinue"
         ]
     },
     "shortcuts": [
