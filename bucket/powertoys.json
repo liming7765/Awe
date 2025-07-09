@@ -50,24 +50,19 @@
         "    Remove-Item -Path $regpath -Recurse -Force | Out-Null",
         "    Invoke-Expression -Command \"$dir\\install-context.ps1\"",
         "}",
-        "$targetDir = \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\"",
-        "$sourceDir = \"$persist_dir\\Settings\"",
-        "ensure $sourceDir | Out-Null",
-        "if ((Test-Path $targetDir) -and -not ((Get-Item $targetDir).LinkType)) {",
-        "    $marker = Join-Path $targetDir '.scoop_persisted'",
-        "    if (-not (Test-Path $marker)) {",
-        "        Get-ChildItem $targetDir -Force | Move-Item -Destination $sourceDir -Force",
-        "        Get-ChildItem $sourceDir -Force | ForEach-Object {",
-        "            $link = Join-Path $targetDir $_.Name",
-        "            if ($_.PSIsContainer) {",
-        "                New-Item -ItemType Junction -Path $link -Target $_.FullName | Out-Null",
-        "            } else {",
-        "                New-Item -ItemType HardLink -Path $link -Target $_.FullName | Out-Null",
-        "            }",
-        "        }",
-        "        New-Item -Path $marker -ItemType File | Out-Null",
+        "ensure \"$persist_dir\\Settings\" | Out-Null",
+        "$targetPath = \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\"",
+        "$sourcePath = \"$persist_dir\\Settings\"",
+        "$linkType = (Get-Item -Path $targetPath -ErrorAction SilentlyContinue).LinkType",
+        "if (Test-Path $targetPath) {",
+        "    if ($linkType -eq 'Junction') {",
+        "        Remove-Item -Path $targetPath -Force",
+        "    } else {",
+        "        Move-Item \"$targetPath\\*\" \"$sourcePath\" -Force",
+        "        Remove-Item $targetPath -Recurse -Force",
         "    }",
-        "}"
+        "}",
+        "New-Item -ItemType Junction -Path $targetPath -Target $sourcePath | Out-Null"
     ],
     "uninstaller": {
         "script": [
@@ -96,7 +91,7 @@
     "checkver": {
         "url": "https://api.github.com/repos/microsoft/PowerToys/releases",
         "jsonpath": "$[0].assets[*].browser_download_url",
-        "regex": "/releases/download/(?<tag>[\\w.]+)/PowerToysUserSetup-([d.]+)-x64\\.exe"
+        "regex": "/releases/download/(?<tag>[\\w.]+)/PowerToysUserSetup-([\\d.]+)-x64\\.exe"
     },
     "autoupdate": {
         "architecture": {
