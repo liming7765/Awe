@@ -20,21 +20,6 @@
             "hash": "e7495316be3ccbb5a684b6806fdfeb8bd5c114b2ea229346da442ed43050d8f3"
         }
     },
-    "pre_install": [
-        "$persist_target = \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\"",
-        "$persist_source = \"$persist_dir\\Settings\"",
-        "ensure $persist_source | Out-Null",
-        "if (Test-Path $persist_target) {",
-        "    $linkType = (Get-Item -Path $persist_target -ErrorAction SilentlyContinue).LinkType",
-        "    if ($linkType -eq 'Junction') {",
-        "        Remove-Item -Path $persist_target -Force",
-        "    } else {",
-        "        Move-Item \"$persist_target\\*\" \"$persist_source\" -Force",
-        "        Remove-Item $persist_target -Force -Recurse",
-        "    }",
-        "}",
-        "New-Item -ItemType Junction -Path $persist_target -Target $persist_source | Out-Null"
-    ],
     "installer": {
         "script": [
             "Expand-DarkArchive \"$dir\\$fname\" \"$dir\\.tmp\"",
@@ -64,13 +49,19 @@
         "if (Test-Path -Path $regpath) {",
         "    Remove-Item -Path $regpath -Recurse -Force | Out-Null",
         "    Invoke-Expression -Command \"$dir\\install-context.ps1\"",
+        "}",
+        "$persist_target = \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\"",
+        "$persist_source = \"$persist_dir\\Settings\"",
+        "ensure $persist_source | Out-Null",
+        "if ((Test-Path $persist_target) -and -not ((Get-Item $persist_target).LinkType -eq 'Junction')) {",
+        "    Move-Item \"$persist_target\\*\" \"$persist_source\" -Force",
+        "    Remove-Item $persist_target -Force -Recurse",
+        "    New-Item -ItemType Junction -Path $persist_target -Target $persist_source | Out-Null",
         "}"
-    ],
-    "pre_uninstall": [
-        "Remove-Item \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\" -Recurse -Force -ErrorAction 'SilentlyContinue'"
     ],
     "uninstaller": {
         "script": [
+            "Remove-Item \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\" -Recurse -Force -ErrorAction 'SilentlyContinue'",
             "$regpath = 'HKCU:\\Software\\Classes\\powertoys'",
             "if ($global) {",
             "    $regpath = $regpath.Replace('HKCU', 'HKLM')",
