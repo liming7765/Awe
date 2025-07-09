@@ -28,6 +28,19 @@
             "Remove-Item \"$dir\\.tmp\", \"$dir\\$fname\" -Force -Recurse"
         ]
     },
+    "pre_install": [
+        "ensure \"$persist_dir\" | Out-Null",
+        "$targetPath = \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\"",
+        "if (Test-Path $targetPath) {",
+        "    if ((Get-Item -Path $targetPath -ErrorAction SilentlyContinue).LinkType -eq 'Junction') {",
+        "        Remove-Item -Path $targetPath -Force",
+        "    } else {",
+        "        Get-ChildItem -Path $targetPath -Force | Move-Item -Destination $persist_dir -Force",
+        "        Remove-Item -Path $targetPath -Force -Recurse",
+        "    }",
+        "}",
+        "New-Item -Path $targetPath -ItemType Junction -Target \"$persist_dir\" | Out-Null"
+    ],
     "post_install": [
         "'install-context', 'uninstall-context' | ForEach-Object {",
         "    if (Test-Path \"$bucketsdir\\$bucket\\scripts\\$app\\$_.ps1\") {",
@@ -49,24 +62,10 @@
         "if (Test-Path -Path $regpath) {",
         "    Remove-Item -Path $regpath -Recurse -Force | Out-Null",
         "    Invoke-Expression -Command \"$dir\\install-context.ps1\"",
-        "}",
-        "ensure \"$persist_dir\\Settings\" | Out-Null",
-        "$targetPath = \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\"",
-        "$sourcePath = \"$persist_dir\\Settings\"",
-        "$linkType = (Get-Item -Path $targetPath -ErrorAction SilentlyContinue).LinkType",
-        "if (Test-Path $targetPath) {",
-        "    if ($linkType -eq 'Junction') {",
-        "        Remove-Item -Path $targetPath -Force",
-        "    } else {",
-        "        Move-Item \"$targetPath\\*\" \"$sourcePath\" -Force",
-        "        Remove-Item $targetPath -Recurse -Force",
-        "    }",
-        "}",
-        "New-Item -ItemType Junction -Path $targetPath -Target $sourcePath | Out-Null"
+        "}"
     ],
     "uninstaller": {
         "script": [
-            "Remove-Item \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\" -Recurse -Force -ErrorAction 'SilentlyContinue'",
             "$regpath = 'HKCU:\\Software\\Classes\\powertoys'",
             "if ($global) {",
             "    $regpath = $regpath.Replace('HKCU', 'HKLM')",
@@ -76,7 +75,8 @@
             "    if ($cmd -ne 'uninstall') {",
             "        New-Item -Path $regpath -Force | Out-Null",
             "    }",
-            "}"
+            "}",
+            "Remove-Item \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\" -Recurse -Force -ErrorAction 'SilentlyContinue'"
         ]
     },
     "shortcuts": [
