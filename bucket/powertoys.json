@@ -20,12 +20,8 @@
             "hash": "e7495316be3ccbb5a684b6806fdfeb8bd5c114b2ea229346da442ed43050d8f3"
         }
     },
-    "installer": {
+    "pre_install": {
         "script": [
-            "Expand-DarkArchive \"$dir\\$fname\" \"$dir\\.tmp\"",
-            "Get-ChildItem \"$dir\\.tmp\\AttachedContainer\\PowerToysUserSetup*.msi\" | Rename-Item -NewName 'PowerToysSetup.msi' -Force",
-            "Expand-MsiArchive \"$dir\\.tmp\\AttachedContainer\\PowerToysSetup.msi\" \"$dir\" -ExtractDir 'PowerToys'",
-            "Remove-Item \"$dir\\.tmp\", \"$dir\\$fname\" -Force -Recurse",
             "$persist_target = \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\"",
             "$persist_source = \"$persist_dir\\Settings\"",
             "ensure $persist_source | Out-Null",
@@ -39,6 +35,14 @@
             "    }",
             "}",
             "New-Item -ItemType Junction -Path $persist_target -Target $persist_source | Out-Null"
+        ]
+    },
+    "installer": {
+        "script": [
+            "Expand-DarkArchive \"$dir\\$fname\" \"$dir\\.tmp\"",
+            "Get-ChildItem \"$dir\\.tmp\\AttachedContainer\\PowerToysUserSetup*.msi\" | Rename-Item -NewName 'PowerToysSetup.msi' -Force",
+            "Expand-MsiArchive \"$dir\\.tmp\\AttachedContainer\\PowerToysSetup.msi\" \"$dir\" -ExtractDir 'PowerToys'",
+            "Remove-Item \"$dir\\.tmp\", \"$dir\\$fname\" -Force -Recurse"
         ]
     },
     "post_install": [
@@ -64,9 +68,11 @@
         "    Invoke-Expression -Command \"$dir\\install-context.ps1\"",
         "}"
     ],
+    "pre_uninstall": {
+        "script": "Remove-Item \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\" -Recurse -Force -ErrorAction 'SilentlyContinue'"
+    },
     "uninstaller": {
         "script": [
-            "Remove-Item \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\" -Recurse -Force -ErrorAction 'SilentlyContinue'",
             "$regpath = 'HKCU:\\Software\\Classes\\powertoys'",
             "if ($global) {",
             "    $regpath = $regpath.Replace('HKCU', 'HKLM')",
