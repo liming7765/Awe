@@ -50,14 +50,19 @@
         "    Remove-Item -Path $regpath -Recurse -Force | Out-Null",
         "    Invoke-Expression -Command \"$dir\\install-context.ps1\"",
         "}",
-        "$persist_target = \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\"",
-        "$persist_source = \"$persist_dir\\Settings\"",
-        "ensure $persist_source | Out-Null",
-        "if ((Test-Path $persist_target) -and -not ((Get-Item $persist_target).LinkType -eq 'Junction')) {",
-        "    Move-Item \"$persist_target\\*\" \"$persist_source\" -Force",
-        "    Remove-Item $persist_target -Force -Recurse",
-        "    New-Item -ItemType Junction -Path $persist_target -Target $persist_source | Out-Null",
-        "}"
+        "ensure \"$persist_dir\\Settings\" | Out-Null",
+        "$targetPath = \"$env:LOCALAPPDATA\\Microsoft\\PowerToys\"",
+        "$sourcePath = \"$persist_dir\\Settings\"",
+        "$linkType = (Get-Item -Path $targetPath -ErrorAction SilentlyContinue).LinkType",
+        "if (Test-Path $targetPath) {",
+        "    if ($linkType -eq 'Junction') {",
+        "        Remove-Item -Path $targetPath -Force",
+        "    } else {",
+        "        Move-Item \"$targetPath\\*\" \"$sourcePath\" -Force",
+        "        Remove-Item $targetPath -Recurse -Force",
+        "    }",
+        "}",
+        "New-Item -ItemType Junction -Path $targetPath -Target $sourcePath | Out-Null"
     ],
     "uninstaller": {
         "script": [
