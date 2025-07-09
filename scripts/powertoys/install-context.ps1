@@ -104,8 +104,7 @@ New-Item -Path $regPath -Value '{{scoop_dir}}\PowerToys.exe -ToastActivated' -Fo
 New-ItemProperty -Path $regPath -Name 'ThreadingModel' -Value 'Apartment' -Force | Out-Null
 
 if ($PSVersionTable.PSVersion.Major -ge 6) { Import-Module Appx -UseWindowsPowershell 3>$null }
-
-Add-AppxPackage -Path '{{scoop_dir}}\ImageResizerContextMenuPackage.msix' -ExternalLocation '{{scoop_dir}}' | Out-Null
+Add-AppxPackage -Path '{{scoop_dir}}\WinUI3Apps\ImageResizerContextMenuPackage.msix' -ExternalLocation '{{scoop_dir}}\WinUI3Apps' | Out-Null
 
 Add-AppxPackage -Path '{{scoop_dir}}\WinUI3Apps\PowerRenameContextMenuPackage.msix' -ExternalLocation '{{scoop_dir}}\WinUI3Apps' | Out-Null
 
