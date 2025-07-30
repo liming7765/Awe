@@ -49,18 +49,16 @@
         "    Get-ChildItem \"$persist_dir\\backup\\*\" -Include '*.gguf' | Move-Item -Force -Destination \"$dir\\MateEngineX_Data\\StreamingAssets\\\"",
         "}"
     ],
-    "pre_uninstall": {
-        "script": [
-            "# Backup .gguf models before uninstallation",
-            "Get-ChildItem \"$dir\\MateEngineX_Data\\StreamingAssets\\*\" -Include '*.gguf' | Move-Item -Force -Destination \"$persist_dir\\backup\" -ErrorAction SilentlyContinue",
-            "",
-            "# Remove the junction link from AppData",
-            "$targetPath = \"$env:USERPROFILE\\AppData\\LocalLow\\Shinymoon\\MateEngineX\"",
-            "if (Test-Path $targetPath) {",
-            "    Remove-Item $targetPath -Recurse -Force -ErrorAction SilentlyContinue",
-            "}"
-        ]
-    },
+    "pre_uninstall": [
+        "# Backup .gguf models before uninstallation",
+        "Get-ChildItem \"$dir\\MateEngineX_Data\\StreamingAssets\\*\" -Include '*.gguf' | Move-Item -Force -Destination \"$persist_dir\\backup\" -ErrorAction SilentlyContinue",
+        "",
+        "# Remove the junction link from AppData",
+        "$targetPath = \"$env:USERPROFILE\\AppData\\LocalLow\\Shinymoon\\MateEngineX\"",
+        "if (Test-Path $targetPath) {",
+        "    Remove-Item $targetPath -Recurse -Force -ErrorAction SilentlyContinue",
+        "}"
+    ],
     "notes": [
         "Mate Engine has been configured to be portable.",
         "Settings are stored in: '$persist_dir\\config'",
