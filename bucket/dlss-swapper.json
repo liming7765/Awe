@@ -6,7 +6,7 @@
     "license": "GPL-3.0",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/beeradmoore/dlss-swapper/releases/download/v1.2.03/DLSS.Swapper-1.2.0.3-portable.zip ",
+            "url": "https://github.com/beeradmoore/dlss-swapper/releases/download/v1.2.0.3/DLSS.Swapper-1.2.0.3-portable.zip",
             "hash": "e4ebebb626da3c9f0170273bf18def78f0833f58081dde3bd23946ba7bac6202"
         }
     },
