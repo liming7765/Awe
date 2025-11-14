@@ -1,12 +1,12 @@
 {
-    "version": "0.15.9",
+    "version": "0.16.0",
     "description": "Game Launcher for miHoYo",
     "homepage": "https://starward.scighost.com/",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/Scighost/Starward/releases/download/0.15.9/Starward_Portable_0.15.9_x64.7z",
-            "hash": "63b69296a2a57b4f4c3e732c7ef6ac4e43dd527bf5153c1fb513bfc1342edc34",
+            "url": "https://github.com/Scighost/Starward/releases/download/0.16.0/Starward_Portable_0.16.0_x64.7z",
+            "hash": "ad62b4a402f73f705aecc574a55bbd2a47d74b133c3a6f1823be8a589f06d6d5",
             "extract_dir": "Starward"
         }
     },
