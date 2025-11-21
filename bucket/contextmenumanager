@@ -1,0 +1,62 @@
+{
+    "version": "3.6.0.0",
+    "description": "A Windows context menu manager (Portable).",
+    "homepage": "https://github.com/Jack251970/ContextMenuManager",
+    "license": "MIT",
+    "notes": "Imports existing config from AppData if found, and ensures portability.",
+    "architecture": {
+        "64bit": {
+            "url": [
+                "https://github.com/Jack251970/ContextMenuManager/releases/download/3.6.0.0/ContextMenuManager.exe",
+                "https://github.com/Jack251970/ContextMenuManager/releases/download/3.6.0.0/ContextMenuManager.dll.config"
+            ],
+            "hash": [
+                "938971f008850616999a385418b765430291d9f8df548847847761012a65a25b",
+                "07144415893d5084992686884392661042790938366922d9483329f60f64483a"
+            ]
+        }
+    },
+    "bin": "ContextMenuManager.exe",
+    "shortcuts": [
+        [
+            "ContextMenuManager.exe",
+            "ContextMenuManager"
+        ]
+    ],
+    "pre_install": [
+        "# 定义原版 AppData 的 Config 路径",
+        "$old_config = \"$env:APPDATA\\ContextMenuManager\\Config\"",
+        "# 定义 Scoop 便携版的目标 Config 路径",
+        "$new_config = \"$persist_dir\\Config\"",
+        "",
+        "# 1. 检查是否需要迁移：(新目录不存在) 且 (旧目录存在)",
+        "if (!(Test-Path $new_config) -and (Test-Path $old_config)) {",
+        "    Write-Host \"Found existing AppData config, migrating...\" -ForegroundColor Yellow",
+        "    # 确保目标文件夹存在",
+        "    New-Item $new_config -ItemType Directory -Force | Out-Null",
+        "    # 复制旧数据过来",
+        "    Copy-Item \"$old_config\\*\" $new_config -Recurse -Force",
+        "    Write-Host \"Migration complete!\" -ForegroundColor Green",
+        "}",
+        "",
+        "# 2. 只有 Config 文件夹存在，软件才会启用便携模式。所以无论是否迁移，都要确保它存在。",
+        "if (!(Test-Path $new_config)) {",
+        "    New-Item $new_config -ItemType Directory -Force | Out-Null",
+        "    Write-Host 'Created Config folder to enforce portable mode' -ForegroundColor Green",
+        "}"
+    ],
+    "persist": "Config",
+    "checkver": {
+        "github": "https://github.com/Jack251970/ContextMenuManager"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": [
+                    "https://github.com/Jack251970/ContextMenuManager/releases/download/$version/ContextMenuManager.exe",
+                    "https://github.com/Jack251970/ContextMenuManager/releases/download/$version/ContextMenuManager.dll.config"
+                ]
+            }
+        }
+    }
+}
