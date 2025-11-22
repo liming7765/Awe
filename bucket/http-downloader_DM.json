@@ -21,7 +21,7 @@
     "    }",
     "}"
   ],
-  "bin": "HTTP_Downloader_DM.exe",
+  "bin": "HTTP_Downloader.exe",
   "shortcuts": [["HTTP_Downloader.exe", "HTTP Downloader_DM"]],
   "persist": ["incomplete", "download_history", "http_downloader_settings"],
   "checkver": {
