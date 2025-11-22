@@ -22,7 +22,7 @@
     "}"
   ],
   "bin": "HTTP_Downloader_DM.exe",
-  "shortcuts": [["HTTP_Downloader_DM.exe", "HTTP Downloader_DM"]],
+  "shortcuts": [["HTTP_Downloader.exe", "HTTP Downloader_DM"]],
   "persist": ["incomplete", "download_history", "http_downloader_settings"],
   "checkver": {
     "github": "https://github.com/erickutcher/httpdownloader",
