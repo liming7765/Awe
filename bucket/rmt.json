@@ -6,11 +6,11 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.8/RMTv1.0.8_x64.zip",
-            "hash": "d701714d248f64194afd4a5feee8cd9e493875f5142eb170f1dc963667743984"
+            "hash": "ec2c01cbce9814caeff6059007499f742c2d3408da13d3b6a3bbddf55a2983e8"
         },
         "32bit": {
             "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.8/RMTv1.0.8_x32.zip",
-            "hash": "ec2c01cbce9814caeff6059007499f742c2d3408da13d3b6a3bbddf55a2983e8"
+            "hash": "d701714d248f64194afd4a5feee8cd9e493875f5142eb170f1dc963667743984"
         }
     },
     "pre_install": [
@@ -40,3 +40,4 @@
         }
     }
 }
+
