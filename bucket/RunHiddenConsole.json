@@ -1,5 +1,5 @@
 {
-    "version": "0",
+    "version": "1.0",
     "description": "Runs console programs silently (Hide Console Window). Fork by liming7765.",
     "homepage": "https://github.com/liming7765/RunHiddenConsole",
     "license": "Unknown",
@@ -29,4 +29,5 @@
         }
     }
 }
+
 
