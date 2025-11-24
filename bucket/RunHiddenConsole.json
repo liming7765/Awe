@@ -1,0 +1,31 @@
+{
+    "version": "0",
+    "description": "Runs console programs silently (Hide Console Window). Fork by liming7765.",
+    "homepage": "https://github.com/liming7765/RunHiddenConsole",
+    "license": "Unknown",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/liming7765/RunHiddenConsole/releases/download/0/RunHiddenConsole_x64.zip",
+            "hash": "skip",
+            "bin": "RunHiddenConsole.exe"
+        },
+        "32bit": {
+            "url": "https://github.com/liming7765/RunHiddenConsole/releases/download/0/RunHiddenConsole_x86.zip",
+            "hash": "skip",
+            "bin": "RunHiddenConsole.exe"
+        }
+    },
+    "checkver": {
+        "github": "https://github.com/liming7765/RunHiddenConsole"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/liming7765/RunHiddenConsole/releases/download/{version}/RunHiddenConsole_x64.zip"
+            },
+            "32bit": {
+                "url": "https://github.com/liming7765/RunHiddenConsole/releases/download/{version}/RunHiddenConsole_x86.zip"
+            }
+        }
+    }
+}
