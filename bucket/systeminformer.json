@@ -1,0 +1,70 @@
+{
+    "version": "3.2.25324.532",
+    "description": "A powerful, multi-purpose tool that helps you monitor system resources, debug software and detect malware.",
+    "homepage": "https://systeminformer.sourceforge.io",
+    "license": {
+        "identifier": "MIT",
+        "url": "https://github.com/winsiderss/si-builds/blob/main/LICENSE"
+    },
+    "architecture": {
+        "32bit": {
+            "url": "https://github.com/winsiderss/si-builds/releases/download/3.2.25324.532/systeminformer-build-win32-bin.zip",
+            "hash": "85209032835ef59c14c1b7ac467242a94ccec953b3ce270a1ecab953eb7cff1d"
+        },
+        "64bit": {
+            "url": "https://github.com/winsiderss/si-builds/releases/download/3.2.25324.532/systeminformer-build-win64-bin.zip",
+            "hash": "b34582e3c7e227231efc7dfae1ddc8d097493046bb85b6be3735b26e5e809b4e"
+        },
+        "arm64": {
+            "url": "https://github.com/winsiderss/si-builds/releases/download/3.2.25324.532/systeminformer-build-arm64-bin.zip",
+            "hash": "3d32396fdce00a3296a5fa8e8508574fe3a086f9d6fc9abe0d290b39d4f35165"
+        }
+    },
+    "pre_install": [
+        "# Hardlink cannot be used here, as System Informer would create a new file instead of writing directly.",
+        "'SystemInformer.exe.settings.xml', 'usernotesdb.xml' | ForEach-Object {",
+        "    if (-not (Test-Path \"$persist_dir\\$_\")) {",
+        "        New-Item \"$dir\\$_\" -ItemType File | Out-Null",
+        "    } else {",
+        "        Copy-Item \"$persist_dir\\$_\" \"$dir\\$_\" -ErrorAction 'SilentlyContinue'",
+        "    }",
+        "}"
+    ],
+    "post_install": [
+        "# Clear icon GUIDs",
+        "$settings = Get-ChildItem \"$dir\\SystemInformer.exe.settings.xml\"",
+        "$settingsXml = [xml](Get-Content $settings)",
+        "if ($settingsXml.settings -eq $null) { return }",
+        "($settingsXml.settings.ChildNodes | Where-Object { $_.name.Contains(\"IconGuids\") }) | ForEach-Object { [void]$_.ParentNode.RemoveChild($_) }",
+        "$settingsXml.Save($settings)"
+    ],
+    "shortcuts": [
+        [
+            "SystemInformer.exe",
+            "System Informer"
+        ]
+    ],
+    "pre_uninstall": [
+        "# Hardlink cannot be used here, as System Informer would create a new file instead of writing directly.",
+        "ensure $persist_dir",
+        "'SystemInformer.exe.settings.xml', 'usernotesdb.xml' | ForEach-Object {",
+        "    Copy-Item \"$dir\\$_\" \"$persist_dir\\$_\" -ErrorAction 'SilentlyContinue'",
+        "}"
+    ],
+    "checkver": {
+        "github": "https://github.com/winsiderss/si-builds"
+    },
+    "autoupdate": {
+        "architecture": {
+            "32bit": {
+                "url": "https://github.com/winsiderss/si-builds/releases/download/$version/systeminformer-build-win32-bin.zip"
+            },
+            "64bit": {
+                "url": "https://github.com/winsiderss/si-builds/releases/download/$version/systeminformer-build-win64-bin.zip"
+            },
+            "arm64": {
+                "url": "https://github.com/winsiderss/si-builds/releases/download/$version/systeminformer-build-arm64-bin.zip"
+            }
+        }
+    }
+}
