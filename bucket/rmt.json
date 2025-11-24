@@ -1,15 +1,22 @@
 {
-    "version": "1.0.6",
-    "description": "RMT is a free open source keystroke macro tool based on AutoHotkey v2, supports recording and playback of keystroke, mouse and joystick macros, integrates picture, color and text recognition functions, suitable for game support and office efficiency enhancement.",
+    "version": "1.0.8",
+    "description": "RMT (RuoMengTu) is a free, open-source macro tool built on AHKv2. Let the code handle the tedious work—you have more meaningful things to do.",
     "homepage": "https://github.com/zclucas/RMT",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.6/RMTv1.0.6.zip",
-            "hash": "b8352eb1291e98b92aebddda0ec209a59fcc50cdec4e8d7a4746191c30d8f7dc"
+            "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.8/RMTv1.0.8_x64.zip",
+            "hash": "d701714d248f64194afd4a5feee8cd9e493875f5142eb170f1dc963667743984"
+        },
+        "32bit": {
+            "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.8/RMTv1.0.8_x32.zip",
+            "hash": "ec2c01cbce9814caeff6059007499f742c2d3408da13d3b6a3bbddf55a2983e8"
         }
     },
-    "pre_install": "if (Test-Path \"$dir\\RMTv$version.exe\") { Rename-Item \"$dir\\RMTv$version.exe\" \"RMT.exe\" }",
+    "pre_install": [
+        "# Renames RMTv1.x.x.exe to RMT.exe to support fixed shim mapping",
+        "Get-ChildItem \"$dir\\RMTv*.exe\" | Rename-Item -NewName 'RMT.exe' -ErrorAction SilentlyContinue"
+    ],
     "bin": "RMT.exe",
     "shortcuts": [
         [
@@ -19,21 +26,17 @@
     ],
     "persist": "Setting",
     "checkver": {
-        "url": "https://api.github.com/repos/zclucas/RMT/releases/latest",
-        "jsonpath": "$.tag_name",
+        "github": "https://github.com/zclucas/RMT",
         "regex": "RMTv([\\d.]+)"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/zclucas/RMT/releases/download/RMTv$version/RMTv$version.zip"
+                "url": "https://github.com/zclucas/RMT/releases/download/RMTv$version/RMTv$version_x64.zip"
+            },
+            "32bit": {
+                "url": "https://github.com/zclucas/RMT/releases/download/RMTv$version/RMTv$version_x32.zip"
             }
-        },
-        "hash": {
-            "url": "https://api.github.com/repos/zclucas/RMT/releases/tags/RMTv$version",
-            "jsonpath": "$.assets[?(@.name == 'RMTv$version.zip')].digest",
-            "regex": "^sha256:([a-fA-F0-9]{64})$"
         }
-    },
-    "notes": "Requires AutoHotkey v2 to be installed."
+    }
 }
