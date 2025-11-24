@@ -5,12 +5,12 @@
     "license": "Unknown",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/liming7765/RunHiddenConsole/releases/download/0/RunHiddenConsole_x64.zip",
+            "url": "https://github.com/liming7765/RunHiddenConsole/releases/download/1.0/RunHiddenConsole_x64.zip",
             "hash": "dee5ae98a9d1f5060f12bb04ed49df078d1bdd333b4b39d49d4d6e163832f5cf",
             "bin": "RunHiddenConsole.exe"
         },
         "32bit": {
-            "url": "https://github.com/liming7765/RunHiddenConsole/releases/download/0/RunHiddenConsole_x86.zip",
+            "url": "https://github.com/liming7765/RunHiddenConsole/releases/download/1.0/RunHiddenConsole_x86.zip",
             "hash": "4fca7a45089f7baef70a83af997040982db8039016953b760d5a3f238e2b5062",
             "bin": "RunHiddenConsole.exe"
         }
@@ -29,5 +29,6 @@
         }
     }
 }
+
 
 
