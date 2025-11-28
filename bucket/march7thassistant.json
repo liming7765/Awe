@@ -3,14 +3,14 @@
         "Scoop manifest for March7thAssistant, supports portable mode with persistent config.yaml and settings folder",
         "autoupdate.hash configured for GitHub auto-generated SHA256 checksums from the 'digest' field"
     ],
-    "version": "v2025.11.11",
+    "version": "v2025.11.28",
     "description": "Honkai: Star Rail automation tool",
     "homepage": "https://moesnow.github.io/March7thAssistant/",
     "license": "GPL-3.0-or-later",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/moesnow/March7thAssistant/releases/download/v2025.11.11/March7thAssistant_full.7z",
-            "hash": "4db416eda25306328ce8df7fec11bd8133f520f95c132dd484ad695d6850b9af",
+            "url": "https://github.com/moesnow/March7thAssistant/releases/download/v2025.11.28/March7thAssistant_full.7z",
+            "hash": "96626f41c1ec93b1ca5c8e89b569fd6ae50c210aa939b11a95b3f6d6b99da6d7",
             "extract_dir": "March7thAssistant_full"
         }
     },
