@@ -1,11 +1,7 @@
 {
-    "##": [
-        "Scoop manifest for March7thAssistant, supports portable mode with persistent config.yaml and settings folder",
-        "autoupdate.hash configured for GitHub auto-generated SHA256 checksums from the 'digest' field"
-    ],
-    "version": "v2025.11.28",
+    "version": "2025.11.28",
     "description": "Honkai: Star Rail automation tool",
-    "homepage": "https://moesnow.github.io/March7thAssistant/",
+    "homepage": "https://m7a.top/",
     "license": "GPL-3.0-or-later",
     "architecture": {
         "64bit": {
@@ -21,37 +17,30 @@
             "March7th Launcher"
         ]
     ],
-    "pre_install": [
-        "New-Item -Path \"$dir\\config.yaml\" -ItemType File -Force -ErrorAction SilentlyContinue | Out-Null",
-        "New-Item -Path \"$dir\\warp.json\" -ItemType File -Force -ErrorAction SilentlyContinue | Out-Null"
-    ],
-    "post_install": [
-        "if (Test-Path \"$dir\\config.yaml.original\") { Remove-Item \"$dir\\config.yaml.original\" }",
-        "if (Test-Path \"$dir\\warp.json.original\") { Remove-Item \"$dir\\warp.json.original\" }",
-        "Write-Host 'Portable mode enabled. Configuration stored in ''config.yaml'' and ''settings'' folder.'"
-    ],
     "persist": [
         "config.yaml",
         "warp.json",
         "settings",
         "logs"
     ],
+    "pre_install": [
+        "if (!(Test-Path \"$dir\\config.yaml\")) { New-Item \"$dir\\config.yaml\" -ItemType File | Out-Null }",
+        "if (!(Test-Path \"$dir\\warp.json\")) { New-Item \"$dir\\warp.json\" -ItemType File | Out-Null }"
+    ],
+    "post_install": [
+        "Remove-Item \"$dir\\config.yaml.original\" -Force -ErrorAction SilentlyContinue",
+        "Remove-Item \"$dir\\warp.json.original\" -Force -ErrorAction SilentlyContinue"
+    ],
     "checkver": {
         "url": "https://api.github.com/repos/moesnow/March7thAssistant/releases/latest",
-        "jsonpath": "$.tag_name",
-        "regex": "(v?\\d+\\.\\d+\\.\\d+)"
+        "regex": "v([\\d.]+)"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/moesnow/March7thAssistant/releases/download/$version/March7thAssistant_full.7z",
+                "url": "https://github.com/moesnow/March7thAssistant/releases/download/v$version/March7thAssistant_full.7z",
                 "extract_dir": "March7thAssistant_full"
             }
-        },
-        "hash": {
-            "url": "https://api.github.com/repos/moesnow/March7thAssistant/releases/tags/$version",
-            "jsonpath": "$.assets[?(@.name == 'March7thAssistant_full.7z')].digest",
-            "regex": "^sha256:([a-fA-F0-9]{64})$"
         }
     }
 }
