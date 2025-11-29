@@ -13,9 +13,28 @@
                 [
                     "SKIF.exe",
                     "Special K"
+                ],
+                [
+                    "SKIV.exe",
+                    "Special K Image Viewer"
                 ]
             ]
         }
+    },
+    "installer": {
+        "script": [
+            "# 1. 将 {app} 文件夹里的所有内容移动到根目录",
+            "Get-ChildItem \"$dir\\{app}\\*\" | Move-Item -Destination \"$dir\" -Force",
+            "",
+            "# 2. 清理 InnoSetup 产生的垃圾文件夹和脚本",
+            "Remove-Item \"$dir\\{app}\", \"$dir\\{tmp}\", \"$dir\\*.iss\" -Recurse -Force -ErrorAction SilentlyContinue",
+            "",
+            "# 3. 处理怪异的文件名：SKIF,1.exe 是最新的，将其重命名为 SKIF.exe",
+            "if (Test-Path \"$dir\\SKIF,1.exe\") {",
+            "    Rename-Item \"$dir\\SKIF,1.exe\" \"SKIF.exe\" -Force",
+            "}",
+            ""
+        ]
     },
     "persist": [
         "Global",
