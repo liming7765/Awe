@@ -1,6 +1,7 @@
+
 {
     "version": "2.12.0",
-    "description": "An electron-based music software",
+    "description": "An electron-based music software (LX Music Desktop)",
     "homepage": "https://github.com/lyswhut/lx-music-desktop",
     "license": "Apache-2.0",
     "architecture": {
@@ -9,13 +10,17 @@
             "hash": "f928fa6ed0279000a5ecf039307139b128d654c5e4980b26256c545877bf9936"
         }
     },
-    "pre_install": "New-Item -Path \"$dir\" -Name \"portable\" -ItemType \"directory\" -Force | Out-Null",
-    "post_install": "if (Test-Path \"$dir\\portable.original\") { Remove-Item \"$dir\\portable.original\" }",
+    "pre_install": [
+        "if (!(Test-Path \"$dir\\portable\")) { New-Item \"$dir\\portable\" -ItemType Directory | Out-Null }"
+    ],
+    "post_install": [
+        "Remove-Item \"$dir\\portable.original\" -Force -ErrorAction SilentlyContinue"
+    ],
     "bin": "lx-music-desktop.exe",
     "shortcuts": [
         [
             "lx-music-desktop.exe",
-            "lx-music-desktop"
+            "LX Music"
         ]
     ],
     "persist": [
@@ -24,20 +29,13 @@
     ],
     "checkver": {
         "url": "https://api.github.com/repos/lyswhut/lx-music-desktop/releases/latest",
-        "jsonpath": "$.tag_name",
         "regex": "v([\\d.]+)"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/lyswhut/lx-music-desktop/releases/download/v$version/lx-music-desktop-v$version-win_x64-green.7z",
-                "extract_dir": "lx-music-desktop"
+                "url": "https://github.com/lyswhut/lx-music-desktop/releases/download/v$version/lx-music-desktop-v$version-win_x64-green.7z"
             }
-        },
-        "hash": {
-            "url": "https://api.github.com/repos/lyswhut/lx-music-desktop/releases/tags/v$version",
-            "jsonpath": "$.assets[?(@.name == 'lx-music-desktop-v$version-win_x64-green.7z')].digest",
-            "regex": "^sha256:([a-fA-F0-9]{64})$"
         }
     }
 }
