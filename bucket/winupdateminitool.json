@@ -20,7 +20,7 @@
         ]
     ],
     "persist": "winUpdateMiniTool.ini",
-    "post_install": [
+    "pre_install": [
         "if (!(Test-Path \"$dir\\winUpdateMiniTool.ini\")) { New-Item \"$dir\\winUpdateMiniTool.ini\" -ItemType File | Out-Null }"
     ],
     "checkver": {
