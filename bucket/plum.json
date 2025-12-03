@@ -1,41 +1,12 @@
 {
-    "version": "2024.04.17.4c28f11",
-    "description": "Plum (Rime configuration manager) - Minimal",
-    "homepage": "https://github.com/rime/plum",
-    "license": "LGPL-3.0-or-later",
-    "url": "https://github.com/rime/plum/archive/4c28f11f451facef809b380502874a48ba964ddb.zip",
-    "hash": "6b6098f9fedf7c6e8993c9a6710cfbddb5bbb91ec9024ea1caaa8a9bb94d46fa",
-    "extract_dir": "plum-4c28f11f451facef809b380502874a48ba964ddb",
-    "bin": "rime-install.bat",
-    "persist": "package",
-    "post_install": [
-        "$plumLink = \"$env:APPDATA\\plum\"",
-        "if (Test-Path $plumLink) {",
-        "    if ((Get-Item $plumLink).LinkType -eq 'Junction') { Remove-Item $plumLink -Force }",
-        "}",
-        "if (-not (Test-Path $plumLink)) {",
-        "    New-Item -ItemType Junction -Path $plumLink -Target \"$dir\" | Out-Null",
-        "}",
-        "$files = @(Get-ChildItem -Path \"$dir\\*\" -File -Exclude \"manifest.json\")",
-        "$files += Get-ChildItem -Path \"$dir\\scripts\" -File",
-        "foreach ($file in $files) {",
-        "    $content = Get-Content -Path $file.FullName -Raw",
-        "    $newContent = $content -replace 'rem set plum_dir=\\%APPDATA\\%\\\\plum', 'set plum_dir=%APPDATA%\\plum'",
-        "    Set-Content -Path $file.FullName -Value $newContent",
-        "}"
-    ],
-    "pre_uninstall": [
-        "if (Test-Path \"$env:APPDATA\\plum\") {",
-        "    if ((Get-Item \"$env:APPDATA\\plum\").LinkType -eq 'Junction') { Remove-Item \"$env:APPDATA\\plum\" -Force }",
-        "}"
-    ],
-    "checkver": {
-        "url": "https://github.com/rime/plum/commits/master.atom",
-        "regex": "(?s)>(\\d+)-(\\d+)-(\\d+)T.*?/(?<sha>(?<short>[0-9a-f]{7})[0-9a-f]{33})",
-        "replace": "${1}.${2}.${3}.${short}"
-    },
-    "autoupdate": {
-        "extract_dir": "plum-$matchSha",
-        "url": "https://github.com/rime/plum/archive/$matchSha.zip"
-    }
+  "version": "2024.04.17.4c28f11",
+  "description": "Plum (Rime 配置工具)",
+  "homepage": "https://github.com/rime/plum",
+  "license": "LGPL-3.0-or-later",
+  "url": "https://github.com/rime/plum/archive/4c28f11f451facef809b380502874a48ba964ddb.zip",
+  "hash": "6b6098f9fedf7c6e8993c9a6710cfbddb5bbb91ec9024ea1caaa8a9bb94d46fa",
+  "extract_dir": "plum-4c28f11f451facef809b380502874a48ba964ddb",
+  "bin": "rime-install.bat",
+  "depends": "git",
+  "persist": "package"
 }
