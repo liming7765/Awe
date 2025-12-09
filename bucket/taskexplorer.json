@@ -1,24 +1,31 @@
 {
-    "version": "1.6.6",
+    "version": "1.7.0",
     "description": "Advanced task manager tool focused on detailed application monitoring",
     "homepage": "https://github.com/DavidXanatos/TaskExplorer",
     "license": "GPL-3.0-only",
-    "url": "https://github.com/DavidXanatos/TaskExplorer/releases/download/v1.6.6/TaskExplorer-v1.6.6.exe",
-    "hash": "9cfe410d127f9b428834d002445145d4c443304e5e9d4786d7d383a4ffe142ac",
+    "url": "https://github.com/DavidXanatos/TaskExplorer/releases/download/v1.7.0/TaskExplorer-v1.7.0.exe",
+    "hash": "0f202879a2d23f93f6472ec59163f007f65bb10444cb1117be009a33bb4643d4",
     "innosetup": true,
     "architecture": {
-        "64bit": { "extract_dir": "x64" },
-        "32bit": { "extract_dir": "x86" },
-        "arm64": { "extract_dir": "ARM64" }
+        "64bit": {
+            "extract_dir": "x64"
+        },
+        "32bit": {
+            "extract_dir": "x86"
+        },
+        "arm64": {
+            "extract_dir": "ARM64"
+        }
     },
     "bin": "TaskExplorer.exe",
     "shortcuts": [
-        ["TaskExplorer.exe", "Task Explorer"]
+        [
+            "TaskExplorer.exe",
+            "Task Explorer"
+        ]
     ],
     "persist": "TaskExplorer.ini",
-    "post_install": [
-        "Remove-Item \"$dir\\TaskExplorer.ini.new\" -Force -ErrorAction SilentlyContinue"
-    ],
+    "post_install": "Remove-Item \"$dir\\TaskExplorer.ini.new\" -Force -ErrorAction SilentlyContinue",
     "checkver": {
         "url": "https://api.github.com/repos/DavidXanatos/TaskExplorer/releases/latest",
         "jsonpath": "$.tag_name",
