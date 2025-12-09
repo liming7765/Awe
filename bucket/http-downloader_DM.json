@@ -1,41 +1,50 @@
 {
-  "version": "1.0.6.8",
-  "description": "A download manager for the HTTP(S) and FTP(S) protocols.",
-  "homepage": "https://erickutcher.github.io/#HTTP_Downloader",
-  "license": "GPL-3.0-or-later",
-  "architecture": {
-    "64bit": {
-      "url": "https://github.com/erickutcher/httpdownloader/releases/download/v1.0.6.8/HTTP_Downloader_DM_64.zip",
-      "hash": "0e2e00202850fbd4b973bc98843c5a7ef8b04c3914e3d13cf9a0a8b2c480680e"
-    },
-    "32bit": {
-      "url": "https://github.com/erickutcher/httpdownloader/releases/download/v1.0.6.8/HTTP_Downloader_DM_32.zip",
-      "hash": "084c12eba5a8602372c6052db16884a2b5de363a072e489272525ffcc896f597"
-    }
-  },
-  "pre_install": [
-    "New-Item \"$dir\\portable\" -Force | Out-Null",
-    "'download_history', 'http_downloader_settings' | ForEach-Object {",
-    "    if (-not (Test-Path -Path \"$persist_dir\\$_\")) {",
-    "        New-Item -Path \"$dir\\$_\" -ItemType File -Force | Out-Null",
-    "    }",
-    "}"
-  ],
-  "bin": "HTTP_Downloader.exe",
-  "shortcuts": [["HTTP_Downloader.exe", "HTTP Downloader_DM"]],
-  "persist": ["incomplete", "download_history", "http_downloader_settings"],
-  "checkver": {
-    "github": "https://github.com/erickutcher/httpdownloader",
-    "regex": "(?i)tag/v([\\d.]+)(?=\")"
-  },
-  "autoupdate": {
+    "version": "1.0.6.9",
+    "description": "A download manager for the HTTP(S) and FTP(S) protocols.",
+    "homepage": "https://erickutcher.github.io/#HTTP_Downloader",
+    "license": "GPL-3.0-or-later",
     "architecture": {
-      "64bit": {
-        "url": "https://github.com/erickutcher/httpdownloader/releases/download/v$version/HTTP_Downloader_DM_64.zip"
-      },
-      "32bit": {
-        "url": "https://github.com/erickutcher/httpdownloader/releases/download/v$version/HTTP_Downloader_DM_32.zip"
-      }
+        "64bit": {
+            "url": "https://github.com/erickutcher/httpdownloader/releases/download/v1.0.6.9/HTTP_Downloader_DM_64.zip",
+            "hash": "c9b2469f0658487cb52ef3de0e736edc41550461ddcd4001cb0e7dc5e34e2054"
+        },
+        "32bit": {
+            "url": "https://github.com/erickutcher/httpdownloader/releases/download/v1.0.6.9/HTTP_Downloader_DM_32.zip",
+            "hash": "70e1dfab31639b6160c37a2769b92196c29545be9f9234ee34b8ee3e71ab0e92"
+        }
+    },
+    "pre_install": [
+        "New-Item \"$dir\\portable\" -Force | Out-Null",
+        "'download_history', 'http_downloader_settings' | ForEach-Object {",
+        "    if (-not (Test-Path -Path \"$persist_dir\\$_\")) {",
+        "        New-Item -Path \"$dir\\$_\" -ItemType File -Force | Out-Null",
+        "    }",
+        "}"
+    ],
+    "bin": "HTTP_Downloader.exe",
+    "shortcuts": [
+        [
+            "HTTP_Downloader.exe",
+            "HTTP Downloader_DM"
+        ]
+    ],
+    "persist": [
+        "incomplete",
+        "download_history",
+        "http_downloader_settings"
+    ],
+    "checkver": {
+        "github": "https://github.com/erickutcher/httpdownloader",
+        "regex": "(?i)tag/v([\\d.]+)(?=\")"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/erickutcher/httpdownloader/releases/download/v$version/HTTP_Downloader_DM_64.zip"
+            },
+            "32bit": {
+                "url": "https://github.com/erickutcher/httpdownloader/releases/download/v$version/HTTP_Downloader_DM_32.zip"
+            }
+        }
     }
-  }
 }
