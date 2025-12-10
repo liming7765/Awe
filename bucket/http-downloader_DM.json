@@ -6,11 +6,11 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/erickutcher/httpdownloader/releases/download/v1.0.6.9/HTTP_Downloader_DM_64.zip",
-            "hash": "c9b2469f0658487cb52ef3de0e736edc41550461ddcd4001cb0e7dc5e34e2054"
+            "hash": "0c215d90bfd067f4132702593c70781de176cba17145e4a1abafe3edf2f175e0"
         },
         "32bit": {
             "url": "https://github.com/erickutcher/httpdownloader/releases/download/v1.0.6.9/HTTP_Downloader_DM_32.zip",
-            "hash": "70e1dfab31639b6160c37a2769b92196c29545be9f9234ee34b8ee3e71ab0e92"
+            "hash": "d034365ef5cefe01aa643cb1c53ac13b4cd7077f5f46e77b823110e88fe655dc"
         }
     },
     "pre_install": [
