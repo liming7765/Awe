@@ -14,7 +14,7 @@
         ]
     ],
     "pre_install": "if (!(Test-Path \"$dir\\TaskExplorer.ini\")) { New-Item \"$dir\\TaskExplorer.ini\" -ItemType File | Out-Null }",
-    "post_install": "Remove-Item \"$dir\\TaskExplorer.ini.new\" -Force -ErrorAction SilentlyContinue",
+    "post_install": "Remove-Item \"$dir\\TaskExplorer.ini.original\" -Force -ErrorAction SilentlyContinue",
     "persist": "TaskExplorer.ini",
     "checkver": {
         "url": "https://api.github.com/repos/DavidXanatos/TaskExplorer/releases/latest",
@@ -30,3 +30,4 @@
         }
     }
 }
+
