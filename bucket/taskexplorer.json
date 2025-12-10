@@ -13,7 +13,7 @@
             "Task Explorer"
         ]
     ],
-    "pre_install": "if (!(Test-Path \"$dir\\TaskExplorer.ini\")) { New-Item \"$dir\\TaskExplorer.ini\" -ItemType File | Out-Null }",
+    "pre_install": "if (!(Test-Path \"$persist_dir\\TaskExplorer.ini\")) { New-Item \"$dir\\TaskExplorer.ini\" -ItemType File | Out-Null }",
     "post_install": "Remove-Item \"$dir\\TaskExplorer.ini.original\" -Force -ErrorAction SilentlyContinue",
     "persist": "TaskExplorer.ini",
     "checkver": {
@@ -30,4 +30,3 @@
         }
     }
 }
-
