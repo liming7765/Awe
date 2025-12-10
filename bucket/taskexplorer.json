@@ -6,17 +6,6 @@
     "url": "https://github.com/DavidXanatos/TaskExplorer/releases/download/v1.7.0/TaskExplorer-v1.7.0.exe",
     "hash": "0f202879a2d23f93f6472ec59163f007f65bb10444cb1117be009a33bb4643d4",
     "innosetup": true,
-    "architecture": {
-        "64bit": {
-            "extract_dir": "x64"
-        },
-        "32bit": {
-            "extract_dir": "x86"
-        },
-        "arm64": {
-            "extract_dir": "ARM64"
-        }
-    },
     "bin": "TaskExplorer.exe",
     "shortcuts": [
         [
@@ -24,8 +13,9 @@
             "Task Explorer"
         ]
     ],
-    "persist": "TaskExplorer.ini",
+    "pre_install": "if (!(Test-Path \"$dir\\TaskExplorer.ini\")) { New-Item \"$dir\\TaskExplorer.ini\" -ItemType File | Out-Null }",
     "post_install": "Remove-Item \"$dir\\TaskExplorer.ini.new\" -Force -ErrorAction SilentlyContinue",
+    "persist": "TaskExplorer.ini",
     "checkver": {
         "url": "https://api.github.com/repos/DavidXanatos/TaskExplorer/releases/latest",
         "jsonpath": "$.tag_name",
