@@ -24,10 +24,9 @@
     ],
     "bin": [
         [
-            "bin\\Zed.exe",
-            "Zed",
-            "--user-data-dir",
-            "$dir\\data"
+            "zed.exe",
+            "zed",
+            "--user-data-dir=\"$dir\\Data\""
         ]
     ],
     "checkver": {
