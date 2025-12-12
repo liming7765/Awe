@@ -19,14 +19,20 @@
             "Expand-InnoArchive -Path \"$dir\\$fname\" -ExtractDir '{code_GetInstallDir}' -Removal"
         ]
     },
-    "persist": [
-        "data" 
-    ],
+    "persist": "data",
     "bin": [
         [
-            "zed.exe",
+            "bin\\zed.exe",
             "zed",
-            "--user-data-dir=\"$dir\\Data\""
+            "--user-data-dir",
+            "$dir\\data"
+        ]
+    ],
+    "shortcuts": [
+        [
+            "bin\\zed.exe",
+            "Zed",
+            "--user-data-dir \"$dir\\data\""
         ]
     ],
     "checkver": {
