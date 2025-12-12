@@ -22,7 +22,7 @@
     "persist": "data",
     "bin": [
         [
-            "bin\\zed.exe",
+            "zed.exe",
             "zed",
             "--user-data-dir",
             "$dir\\data"
@@ -30,7 +30,7 @@
     ],
     "shortcuts": [
         [
-            "bin\\zed.exe",
+            "zed.exe",
             "Zed",
             "--user-data-dir \"$dir\\data\""
         ]
