@@ -12,14 +12,26 @@
             "TrayChrome"
         ]
     ],
-    "pre_install": [
-        "if (!(Test-Path \"$persist_dir\\settings.json\")) { Set-Content \"$dir\\settings.json\" '{}' -Encoding Ascii }",
-        "if (!(Test-Path \"$persist_dir\\bookmarks.json\")) { Set-Content \"$dir\\bookmarks.json\" '{}' -Encoding Ascii }"
-    ],
     "persist": [
-        "settings.json",
-        "bookmarks.json",
         "TrayChrome.exe.WebView2"
+    ],
+    "post_install": [
+        "$files = @('settings.json', 'bookmarks.json')",
+        "foreach ($file in $files) {",
+        "    if (Test-Path \"$persist_dir\\$file\") {",
+        "        if (Test-Path \"$dir\\$file\") { Remove-Item \"$dir\\$file\" -Force }",
+        "        New-Item -Path \"$dir\\$file\" -ItemType HardLink -Value \"$persist_dir\\$file\" | Out-Null",
+        "    }",
+        "}"
+    ],
+    "pre_uninstall": [
+        "$files = @('settings.json', 'bookmarks.json')",
+        "Ensure-Dir \"$persist_dir\"",
+        "foreach ($file in $files) {",
+        "    if ((Test-Path \"$dir\\$file\") -and !(Test-Path \"$persist_dir\\$file\")) {",
+        "        Copy-Item \"$dir\\$file\" \"$persist_dir\\$file\"",
+        "    }",
+        "}"
     ],
     "checkver": {
         "github": "cornradio/tray-chrome"
