@@ -26,10 +26,10 @@
     ],
     "pre_uninstall": [
         "$files = @('settings.json', 'bookmarks.json')",
-        "if (!(Test-Path \"$persist_dir\")) { New-Item \"$persist_dir\" -ItemType Directory -Force | Out-Null }",
+        "Ensure-Dir \"$persist_dir\"",
         "foreach ($file in $files) {",
-        "    if (Test-Path \"$dir\\$file\") {",
-        "        Copy-Item \"$dir\\$file\" \"$persist_dir\\$file\" -Force",
+        "    if ((Test-Path \"$dir\\$file\") -and !(Test-Path \"$persist_dir\\$file\")) {",
+        "        Copy-Item \"$dir\\$file\" \"$persist_dir\\$file\"",
         "    }",
         "}"
     ],
