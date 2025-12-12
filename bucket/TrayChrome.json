@@ -1,0 +1,26 @@
+{
+    "version": "1.5",
+    "description": "Minimize Chrome (and other windows) to the system tray using a hotkey (Boss Key).",
+    "homepage": "https://github.com/cornradio/tray-chrome",
+    "license": "Unknown",
+    "url": "https://github.com/cornradio/tray-chrome/releases/download/v1.5/TrayChrome.exe",
+    "hash": "c799f424da642f61e5e14e9036440cca9340673205c603e1e4220bc180197c92",
+    "bin": "TrayChrome.exe",
+    "shortcuts": [
+        [
+            "TrayChrome.exe",
+            "TrayChrome"
+        ]
+    ],
+    "persist": [
+        "settings.json",
+        "bookmarks.json",
+        "TrayChrome.exe.WebView2"
+    ],
+    "checkver": {
+        "github": "cornradio/tray-chrome"
+    },
+    "autoupdate": {
+        "url": "https://github.com/cornradio/tray-chrome/releases/download/v$version/TrayChrome.exe"
+    }
+}
