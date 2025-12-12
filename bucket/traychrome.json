@@ -13,8 +13,8 @@
         ]
     ],
     "pre_install": [
-        "if (!(Test-Path \"$persist_dir\\settings.json\")) { New-Item \"$dir\\settings.json\" -ItemType File -Value '{}' | Out-Null }",
-        "if (!(Test-Path \"$persist_dir\\bookmarks.json\")) { New-Item \"$dir\\bookmarks.json\" -ItemType File -Value '{}' | Out-Null }"
+        "if (!(Test-Path \"$persist_dir\\settings.json\")) { New-Item \"$dir\\settings.json\" -ItemType File | Out-Null }",
+        "if (!(Test-Path \"$persist_dir\\bookmarks.json\")) { New-Item \"$dir\\bookmarks.json\" -ItemType File | Out-Null }"
     ],
     "persist": [
         "settings.json",
