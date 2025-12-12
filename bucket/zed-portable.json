@@ -24,7 +24,7 @@
     ],
     "bin": [
         [
-            "bin\\zed.exe",
+            "bin\\Zed.exe",
             "Zed",
             "--user-data-dir",
             "$dir\\data"
