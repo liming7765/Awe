@@ -6,12 +6,12 @@
         "Backs up .ollama to %USERPROFILE%\\.ollama on uninstall to persist data",
         "autoupdate.hash configured for GitHub SHA256 checksums (verify sha256sum.txt URL and format)"
     ],
-    "version": "0.13.3",
+    "version": "0.13.4",
     "description": "Run large language models locally with ease",
     "homepage": "https://ollama.com/",
     "license": "MIT",
-    "url": "https://github.com/ollama/ollama/releases/download/v0.13.3/OllamaSetup.exe",
-    "hash": "85ecd2a00f893d3bff30a8c0af35c10ef1e88d35a53b2ebb54f9fc949345284d",
+    "url": "https://github.com/ollama/ollama/releases/download/v0.13.4/OllamaSetup.exe",
+    "hash": "f7c507d73e279816731db5635cb8543232b8b0e5fe034b66fe5af6a6fb021fe9",
     "innosetup": true,
     "architecture": {
         "64bit": {
