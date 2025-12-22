@@ -3,7 +3,11 @@
     "description": "⚡️ Blazing fast terminal file manager written in Rust, based on async I/O.",
     "homepage": "https://github.com/sxyazi/yazi",
     "license": "MIT",
-    "notes": "Configuration is persisted in $dir\\.config. YAZI_CONFIG_HOME is set to this directory.",
+    "notes": [
+        "Configuration is persisted in '$dir\\.config'.",
+        "YAZI_CONFIG_HOME is set to this directory.",
+        "To customize, download preset configs from 'https://github.com/sxyazi/yazi/tree/shipped/yazi-config/preset' and place them in the config directory."
+    ],
     "architecture": {
         "64bit": {
             "url": "https://github.com/sxyazi/yazi/releases/download/v25.5.31/yazi-x86_64-pc-windows-msvc.zip",
@@ -20,23 +24,6 @@
         "YAZI_CONFIG_HOME": "$dir\\.config"
     },
     "persist": ".config",
-    "pre_install": [
-        "if (!(Test-Path \"$dir\\.config\")) { New-Item \"$dir\\.config\" -Type Directory -Force | Out-Null }",
-        "$base_url = 'https://raw.githubusercontent.com/sxyazi/yazi/shipped/yazi-config/preset'",
-        "# 定义映射: 本地文件名 = 远程文件名",
-        "$files = @{ 'yazi.toml' = 'yazi-default.toml'; 'keymap.toml' = 'keymap-default.toml'; 'theme.toml' = 'theme-dark.toml' }",
-        "foreach ($local_name in $files.Keys) {",
-        "    if (!(Test-Path \"$persist_dir\\.config\\$local_name\")) {",
-        "        $remote_name = $files[$local_name]",
-        "        Write-Host \"Downloading $remote_name as $local_name...\"",
-        "        try {",
-        "            Invoke-WebRequest \"$base_url/$remote_name\" -OutFile \"$dir\\.config\\$local_name\"",
-        "        } catch {",
-        "            Write-Warning \"Failed to download $remote_name: $_\"",
-        "        }",
-        "    }",
-        "}"
-    ],
     "bin": [
         "ya.exe",
         "yazi.exe"
