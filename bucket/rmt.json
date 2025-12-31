@@ -1,16 +1,16 @@
 {
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "RMT (RuoMengTu) is a free, open-source macro tool built on AHKv2. Let the code handle the tedious work—you have more meaningful things to do.",
     "homepage": "https://github.com/zclucas/RMT",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.8/RMTv1.0.8_x64.zip",
-            "hash": "ec2c01cbce9814caeff6059007499f742c2d3408da13d3b6a3bbddf55a2983e8"
+            "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.9/RMTv1.0.9_x64.zip",
+            "hash": "cb2fc69f55fef98dc25f706de53a24308095050b07df4a4124d06844218edffe"
         },
         "32bit": {
-            "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.8/RMTv1.0.8_x32.zip",
-            "hash": "d701714d248f64194afd4a5feee8cd9e493875f5142eb170f1dc963667743984"
+            "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.9/RMTv1.0.9_x32.zip",
+            "hash": "84b235dbc1642c7afdafff17ba5beb2064f0c48a77c03b9329be92ff9b128b08"
         }
     },
     "pre_install": [
@@ -40,4 +40,3 @@
         }
     }
 }
-
