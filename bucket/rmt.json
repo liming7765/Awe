@@ -2,7 +2,7 @@
     "version": "1.0.9",
     "description": "RMT (RuoMengTu) is a free, open-source macro tool built on AHKv2. Let the code handle the tedious work—you have more meaningful things to do.",
     "homepage": "https://github.com/zclucas/RMT",
-    "license": "MIT",
+    "license": "AGPL-3.0",
     "architecture": {
         "64bit": {
             "url": "https://github.com/zclucas/RMT/releases/download/RMTv1.0.9/RMTv1.0.9_x64.zip",
@@ -14,8 +14,8 @@
         }
     },
     "pre_install": [
-        "# Renames RMTv1.x.x.exe to RMT.exe to support fixed shim mapping",
-        "Get-ChildItem \"$dir\\RMTv*.exe\" | Rename-Item -NewName 'RMT.exe' -ErrorAction SilentlyContinue"
+        "Get-ChildItem \"$dir\\RMTv*.exe\" | Rename-Item -NewName 'RMT.exe' -ErrorAction SilentlyContinue",
+        "if (!(Test-Path \"$dir\\SettingOld\")) { New-Item \"$dir\\SettingOld\" -Type Directory }"
     ],
     "bin": "RMT.exe",
     "shortcuts": [
@@ -24,7 +24,10 @@
             "RMT"
         ]
     ],
-    "persist": "Setting",
+    "persist": [
+        "Setting",
+        "SettingOld"
+    ],
     "checkver": {
         "github": "https://github.com/zclucas/RMT",
         "regex": "RMTv([\\d.]+)"
