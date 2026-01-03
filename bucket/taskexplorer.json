@@ -1,32 +1,23 @@
 {
-    "version": "1.7.1",
-    "description": "Advanced task manager tool focused on detailed application monitoring",
-    "homepage": "https://github.com/DavidXanatos/TaskExplorer",
-    "license": "GPL-3.0-only",
-    "url": "https://github.com/DavidXanatos/TaskExplorer/releases/download/v1.7.1/TaskExplorer-v1.7.1.exe",
-    "hash": "dd07078434eacbf151f5623c263017a8513eb1cd523ff78f4f1a3c622a902e05",
-    "innosetup": true,
-    "bin": "TaskExplorer.exe",
-    "shortcuts": [
-        [
-            "TaskExplorer.exe",
-            "Task Explorer"
-        ]
-    ],
-    "pre_install": "if (!(Test-Path \"$persist_dir\\TaskExplorer.ini\")) { New-Item \"$dir\\TaskExplorer.ini\" -ItemType File | Out-Null }",
-    "post_install": "Remove-Item \"$dir\\TaskExplorer.ini.original\" -Force -ErrorAction SilentlyContinue",
-    "persist": "TaskExplorer.ini",
-    "checkver": {
-        "url": "https://api.github.com/repos/DavidXanatos/TaskExplorer/releases/latest",
-        "jsonpath": "$.tag_name",
-        "regex": "v?([\\d.]+)"
-    },
-    "autoupdate": {
-        "url": "https://github.com/DavidXanatos/TaskExplorer/releases/download/v$version/TaskExplorer-v$version.exe",
-        "hash": {
-            "url": "https://api.github.com/repos/DavidXanatos/TaskExplorer/releases/tags/v$version",
-            "jsonpath": "$.assets[?(@.name == 'TaskExplorer-v$version.exe')].digest",
-            "regex": "^sha256:([a-fA-F0-9]{64})$"
-        }
-    }
+  "version": "1.7.1",
+  "description": "Power full Task Manager ",
+  "homepage": "https://github.com/DavidXanatos/TaskExplorer",
+  "license": "GPL-3.0-only",
+  "notes": "TaskExplorer requires Admin privileges to load its driver for full functionality.",
+  "url": "https://github.com/DavidXanatos/TaskExplorer/releases/download/v1.7.1/TaskExplorer-v1.7.1.exe",
+  "hash": "dd07078434eacbf151f5623c263017a8513eb1cd523ff78f4f1a3c622a902e05",
+  "innosetup": true,
+  "bin": "TaskExplorer.exe",
+  "shortcuts": [["TaskExplorer.exe", "TaskExplorer"]],
+  "pre_install": [
+    "ensure \"$persist_dir\" | Out-Null",
+    "Copy-Item \"$persist_dir\\TaskExplorer.ini\" \"$dir\" -ErrorAction SilentlyContinue -Force"
+  ],
+  "uninstaller": {
+    "script": "Copy-Item \"$dir\\TaskExplorer.ini\" \"$persist_dir\" -ErrorAction SilentlyContinue -Force"
+  },
+  "checkver": "github",
+  "autoupdate": {
+    "url": "https://github.com/DavidXanatos/TaskExplorer/releases/download/v$version/TaskExplorer-v$version.exe"
+  }
 }
