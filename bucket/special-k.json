@@ -1,66 +1,61 @@
 {
     "version": "25.12.2.5",
-    "description": "Special K - The Swiss Army Knife of PC gaming (SKIF)",
-    "homepage": "https://www.special-k.info/",
-    "license": "GPL-3.0",
+    "description": "The Swiss Army Knife of PC Gaming",
+    "homepage": "https://special-k.info",
+    "license": "GPL-3.0-only",
     "url": "https://sk-data.special-k.info/repository/SpecialK_25.12.2.5.exe",
     "hash": "2ac633ad3e6a68b34ffc7e48da1bc4fadbcadcd04b823be260c5d7fe4823847c",
     "innosetup": true,
     "architecture": {
+        "32bit": {
+            "pre_install": [
+                "Rename-Item -Path \"$dir\\SKIF,2.exe\" -NewName \"SKIF.exe\"",
+                "Remove-Item -Path \"$dir\\SKIF,1.exe\""
+            ]
+        },
         "64bit": {
-            "bin": "SKIF.exe",
-            "shortcuts": [
-                [
-                    "SKIF.exe",
-                    "Special K"
-                ],
-                [
-                    "SKIV.exe",
-                    "Special K Image Viewer"
-                ]
+            "pre_install": [
+                "Rename-Item -Path \"$dir\\SKIF,1.exe\" -NewName \"SKIF.exe\"",
+                "Remove-Item -Path \"$dir\\SKIF,2.exe\""
             ]
         }
     },
-    "installer": {
-        "script": [
-            "# 1. 检查是否存在 {app} 文件夹，如果存在才移动文件",
-            "if (Test-Path \"$dir\\{app}\") {",
-            "    Get-ChildItem \"$dir\\{app}\\*\" | Move-Item -Destination \"$dir\" -Force",
-            "    Remove-Item \"$dir\\{app}\" -Recurse -Force -ErrorAction SilentlyContinue",
-            "}",
-            "",
-            "# 2. 清理垃圾文件（如果有）",
-            "Remove-Item \"$dir\\{tmp}\", \"$dir\\*.iss\" -Recurse -Force -ErrorAction SilentlyContinue",
-            "",
-            "# 3. 重命名主程序 (SKIF,1.exe -> SKIF.exe)",
-            "if (Test-Path \"$dir\\SKIF,1.exe\") {",
-            "    Rename-Item \"$dir\\SKIF,1.exe\" \"SKIF.exe\" -Force",
-            "}",
-            ""
-        ]
-    },
+    "pre_install": [
+        "if (!(Test-Path \"$persist_dir\\Profiles\")) {",
+        "  New-Item -Type Directory -Path \"$persist_dir\\Profiles\"",
+        "}"
+    ],
     "persist": [
         "Global",
         "Profiles",
         "Logs"
     ],
-    "pre_uninstall": [
-        "if (Get-Process -Name 'SKIF' -ErrorAction SilentlyContinue) { Stop-Process -Name 'SKIF' -Force }",
-        "Remove-Item 'HKCU:\\SOFTWARE\\Kaldaien\\Special K' -Recurse -Force -ErrorAction SilentlyContinue"
+    "shortcuts": [
+        [
+            "SKIF.exe",
+            "Special K"
+        ],
+        [
+            "SKIV.exe",
+            "Special K Image Viewer"
+        ]
     ],
     "checkver": {
         "script": [
-            "$jsonContent = Invoke-RestMethod 'https://sk-data.special-k.info/repository.json'",
-            "$version = $jsonContent.Main.Versions.Where({$_.Branches -eq 'Website'}).Name[0]",
-            "Write-Output $version"
+            "$ProgressPreference = \"SilentlyContinue\"",
+            "$repoUrl = \"https://sk-data.special-k.info/repository.json\"",
+            "$resp = Invoke-WebRequest -Uri \"$repoUrl\" -ea Stop",
+            "$obj = ConvertFrom-Json $resp.Content -ea Stop",
+            "$version = $obj.Main.Versions |",
+            "    Where-Object { $_.Branches.Contains(\"Website\") } |",
+            "    Select-Object -First 1",
+            "if ($null -eq $version) { throw \"Could not find a version from ${repoUrl}\"; }",
+            "Write-Output \"$($version.Name):$($version.SHA256):$($version.Installer)\""
         ],
-        "regex": "([\\d.]+)"
+        "regex": "(?<version>.+?):(?<hash>.+?):(?<url>.+)"
     },
     "autoupdate": {
-        "url": "https://sk-data.special-k.info/repository/SpecialK_$version.exe",
-        "hash": {
-            "url": "https://sk-data.special-k.info/repository.json",
-            "jsonpath": "$.Main.Versions[?(@.Name == '$version')].SHA256"
-        }
+        "url": "$matchUrl",
+        "hash": "$matchHash"
     }
 }
