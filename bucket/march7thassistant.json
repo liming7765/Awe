@@ -1,12 +1,12 @@
 {
-    "version": "2026.1.12",
+    "version": "2026.1.13",
     "description": "Honkai: Star Rail automation tool",
     "homepage": "https://m7a.top/",
     "license": "GPL-3.0-or-later",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/moesnow/March7thAssistant/releases/download/v2026.1.12/March7thAssistant_full.7z",
-            "hash": "e02a1037ed49dca6ea32e3b24e2d67085780c17f0b80ec2c29b0dc7eb10fcf67",
+            "url": "https://github.com/moesnow/March7thAssistant/releases/download/v2026.1.13/March7thAssistant_full.7z",
+            "hash": "cd59871792cfe427e29c3fe8182ab181f421ffc55cc7b4672afec7a60ae4d4e5",
             "extract_dir": "March7thAssistant_full"
         }
     },
