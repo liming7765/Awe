@@ -1,0 +1,36 @@
+{
+    "version": "26.1.1",
+    "description": "GoldenDict-ng is an advanced dictionary lookup program, supporting many formats.",
+    "homepage": "https://github.com/xiaoyifang/goldendict-ng",
+    "license": "GPL-3.0-or-later",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/xiaoyifang/goldendict-ng/releases/download/v26.2.0-alpha.de37daa5/GoldenDict-ng-26.2.0-Qt6.7.2-Windows-installer.7z#dl.7z",
+            "hash": "9ac8eb62e610b8135819857a8de4959bf0c3bd7d85b9616b0f265013e4ba17ae"
+        }
+    },
+    "extract_dir": "GoldenDict-ng-26.2.0-Qt6.7.2",
+    "bin": "goldendict.exe",
+    "shortcuts": [
+        [
+            "goldendict.exe",
+            "GoldenDict-ng"
+        ]
+    ],
+    "persist": [
+        "portable",
+        "content"
+    ],
+    "checkver": {
+        "url": "https://github.com/xiaoyifang/goldendict-ng/releases",
+        "regex": "GoldenDict-ng-([\\d.]+)-Qt([\\d.]+)-Windows-installer\\.7z"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/xiaoyifang/goldendict-ng/releases/download/v$match1/GoldenDict-ng-$match1-Qt$match2-Windows-installer.7z",
+                "extract_dir": "GoldenDict-ng-$match1-Qt$match2"
+            }
+        }
+    }
+}
