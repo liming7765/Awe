@@ -15,7 +15,6 @@
         }
     },
     "pre_install": [
-        "# 这里的代码负责解压后整理目录结构",
         "$topLevelItems = Get-ChildItem -Path $dir",
         "if (($topLevelItems.Count -eq 1) -and ($topLevelItems[0].PSIsContainer)) {",
         "    $subfolder = $topLevelItems[0].FullName",
