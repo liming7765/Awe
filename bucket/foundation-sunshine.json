@@ -1,5 +1,5 @@
 {
-  "version": "2025.1227",
+  "version": "2026.0108",
   "description": "A Gamestream host for Moonlight",
   "homepage": "https://github.com/qiin2333/foundation-sunshine",
   "license": "GPL-3.0-only",
@@ -9,18 +9,27 @@
   ],
   "architecture": {
     "64bit": {
-      "url": "https://github.com/qiin2333/foundation-sunshine/releases/download/v2025.1227.24756.%E6%9D%82%E9%B1%BC/Sunshine.v2025.1227.WindowsPortable.zip",
-      "hash": "67fdeec2e2e1519b584d2e23d5b7f8846a101ddf5aed66386a84486f82371732"
+      "url": "https://github.com/qiin2333/foundation-sunshine/releases/download/v2026.108.162134.%E6%9D%82%E9%B1%BC/Sunshine.v2026.0108.WindowsPortable.zip",
+      "hash": "8f718ec4e53ea13d9995c8fa2dfceb22c9b222bae00ebe0d2e8933d253a706cd"
     }
   },
   "extract_dir": "Sunshine",
   "pre_install": "Set-Content -Path \"$dir\\sunshine.bat\" -Value (@('@echo off', 'pushd %~dp0 && sunshine.exe %* && popd') -join \"`r`n\")",
-  "bin": ["sunshine.bat", "tools\\dxgi-info.exe", "tools\\audio-info.exe"],
-  "shortcuts": [["sunshine.exe", "foundation-Sunshine"]],
+  "bin": [
+    "sunshine.bat",
+    "tools\\dxgi-info.exe",
+    "tools\\audio-info.exe"
+  ],
+  "shortcuts": [
+    [
+      "sunshine.exe",
+      "foundation-Sunshine"
+    ]
+  ],
   "persist": "config",
   "checkver": {
     "url": "https://github.com/qiin2333/foundation-sunshine/releases",
-    "regex": "/releases/download/(?<tag>v.+?)/Sunshine\\.v(?<version>[\\d.]+)\\.WindowsPortable\\.zip"
+    "regex": "releases/download/(?<tag>v[^/]+)/Sunshine\\.v(?<version>[\\d.]+)\\.WindowsPortable\\.zip"
   },
   "autoupdate": {
     "architecture": {
