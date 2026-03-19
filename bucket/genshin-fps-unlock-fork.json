@@ -1,38 +1,38 @@
 {
-  "version": "2.9.2",
-  "description": "An FPS unlocker for Genshin Impact and Honkai: Star Rail (Requires Admin).",
-  "homepage": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker",
-  "license": "MIT",
-  "notes": [
-    "This tool modifies game memory to unlock FPS.",
-    "You MUST run this tool as Administrator (sudo unlocker).",
-    "The executable has been renamed to 'unlocker.exe' for convenience.",
-    "Config file 'hoyofps_config.ini' is persisted."
-  ],
-  "architecture": {
-    "64bit": {
-      "url": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker/releases/download/v2.9.2/Unlocker_292_p3.exe#/unlocker.exe",
-      "hash": "7972a9e5829d007f2b58c2238a5435a23a541144cfc9cb89197cd6a27689c5b7"
-    }
-  },
-  "pre_install": "if (!(Test-Path \"$persist_dir\\hoyofps_config.ini\")) { Add-Content \"$dir\\hoyofps_config.ini\" '{}' -Encoding utf8 }",
-  "persist": "hoyofps_config.ini",
-  "bin": "unlocker.exe",
-  "shortcuts": [
-    [
-      "unlocker.exe",
-      "Genshin & StarRail FPS Unlocker"
-    ]
-  ],
-  "checkver": {
-    "github": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker",
-    "regex": "v(?<version>[\\d.]+)/(?<filename>Unlocker_.*\\.exe)"
-  },
-  "autoupdate": {
+    "version": "2.9.3",
+    "description": "An FPS unlocker for Genshin Impact and Honkai: Star Rail (Requires Admin).",
+    "homepage": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker",
+    "license": "MIT",
+    "notes": [
+        "This tool modifies game memory to unlock FPS.",
+        "You MUST run this tool as Administrator (sudo unlocker).",
+        "The executable has been renamed to 'unlocker.exe' for convenience.",
+        "Config file 'hoyofps_config.ini' is persisted."
+    ],
     "architecture": {
-      "64bit": {
-        "url": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker/releases/download/v$version/$matchFilename#/unlocker.exe"
-      }
+        "64bit": {
+            "url": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker/releases/download/v2.9.3/Unlocker_293.exe#/unlocker.exe",
+            "hash": "337e4258c95efb36b5b5cd0e4df7420d80cf53b34e07c2302905715391ae11d7"
+        }
+    },
+    "pre_install": "if (!(Test-Path \"$persist_dir\\hoyofps_config.ini\")) { Add-Content \"$dir\\hoyofps_config.ini\" '{}' -Encoding utf8 }",
+    "persist": "hoyofps_config.ini",
+    "bin": "unlocker.exe",
+    "shortcuts": [
+        [
+            "unlocker.exe",
+            "Genshin & StarRail FPS Unlocker"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker",
+        "regex": "v(?<version>[\\d.]+)/(?<filename>Unlocker_.*\\.exe)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker/releases/download/v$version/$matchFilename#/unlocker.exe"
+            }
+        }
     }
-  }
 }
