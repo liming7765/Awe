@@ -25,13 +25,13 @@
     ]
   ],
   "checkver": {
-    "url": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker/releases/latest",
-    "regex": "releases/download/v([\\d.]+)/(Unlocker_.*\\.exe)"
+    "github": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker",
+    "regex": "v(?<version>[\\d.]+)/(?<filename>Unlocker_.*\\.exe)"
   },
   "autoupdate": {
     "architecture": {
       "64bit": {
-        "url": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker/releases/download/v$version/$match2#/unlocker.exe"
+        "url": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker/releases/download/v$version/$matchFilename#/unlocker.exe"
       }
     }
   }
