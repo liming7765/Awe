@@ -1,5 +1,5 @@
 {
-    "version": "2.9.3",
+    "version": "2.9.4",
     "description": "An FPS unlocker for Genshin Impact and Honkai: Star Rail (Requires Admin).",
     "homepage": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker",
     "license": "MIT",
@@ -11,8 +11,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker/releases/download/v2.9.3/Unlocker_293.exe#/unlocker.exe",
-            "hash": "337e4258c95efb36b5b5cd0e4df7420d80cf53b34e07c2302905715391ae11d7"
+            "url": "https://github.com/winTEuser/Genshin_StarRail_fps_unlocker/releases/download/v2.9.4/Unlocker_294.exe#/unlocker.exe",
+            "hash": "c92d8f4e26885fa3184a8d3b46cdee762c3f2d53c28da30c8896b02f9751f8bb"
         }
     },
     "pre_install": "if (!(Test-Path \"$persist_dir\\hoyofps_config.ini\")) { Add-Content \"$dir\\hoyofps_config.ini\" '{}' -Encoding utf8 }",
