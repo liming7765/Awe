@@ -27,15 +27,12 @@
     ]
   ],
   "persist": "config",
-  "checkver": {
-    "url": "https://github.com/qiin2333/foundation-sunshine/releases",
-    "regex": "releases/download/(?<tag>v[^/]+)/Sunshine\\.v(?<version>[\\d.]+)\\.WindowsPortable\\.zip"
-  },
+  "checkver": "github",
   "autoupdate": {
     "architecture": {
-      "64bit": {
-        "url": "https://github.com/qiin2333/foundation-sunshine/releases/download/$matchTag/Sunshine.v$version.WindowsPortable.zip"
-      }
+    "64bit": {
+       "url": "https://github.com/LizardByte/Sunshine/releases/download/v$version/Sunshine-Windows-AMD64-portable.zip"
+            }
+        }
     }
-  }
 }
