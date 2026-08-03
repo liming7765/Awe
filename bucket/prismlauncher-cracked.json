@@ -1,0 +1,91 @@
+{
+    "version": "11.0.3",
+    "description": "Unofficial fork of Prism Launcher that enables offline accounts without Microsoft authentication.",
+    "homepage": "https://github.com/Diegiwg/PrismLauncher-Cracked",
+    "license": "GPL-3.0-only",
+    "notes": [
+        "This is an unofficial Prism Launcher fork.",
+        "The upstream repository warns against using official Microsoft/Mojang accounts with this launcher.",
+        "Use it only where you have the legal right to do so."
+    ],
+    "suggest": {
+        "Microsoft Visual C++ Redistributables": "extras/vcredist2022"
+    },
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/Diegiwg/PrismLauncher-Cracked/releases/download/11.0.3/PrismLauncher-Windows-MSVC-Portable-11.0.3.zip",
+            "hash": "f22f6f5bd22df1c013ff472caf423c703058976d23535ab6b79e17bb99d0a05f"
+        },
+        "arm64": {
+            "url": "https://github.com/Diegiwg/PrismLauncher-Cracked/releases/download/11.0.3/PrismLauncher-Windows-MSVC-arm64-Portable-11.0.3.zip",
+            "hash": "3058a43b4acce0af61233decead5eaf3e17f4b64e1255df95babc14f53d3a367"
+        }
+    },
+    "pre_install": [
+        "$migration = $true",
+        "$visibleUserAccounts = Get-LocalUser | Where-Object { $_.Enabled -eq $true }",
+        "if ($global -and $visibleUserAccounts.Count -gt 1) { $migration = $false }",
+        "",
+        "$appdataPath = \"$HOME\\AppData\\Roaming\\PrismLauncher\"",
+        "if ((Test-Path -Path $appdataPath\\*) -and (!(Test-Path -Path $persist_dir\\*)) -and $migration) {",
+        "    Write-Warning \"Migrating data from $appdataPath to $persist_dir (this may take a while)\"",
+        "    New-Item -ItemType Directory -Path $persist_dir -Force | Out-Null",
+        "    Copy-Item -Recurse -Force $appdataPath\\* $persist_dir\\",
+        "} elseif (!($migration)) {",
+        "    Write-Warning \"A global Scoop installation with multiple enabled users was detected; automatic migration was skipped.\"",
+        "}",
+        "",
+        "$contents = @{ 'metacache' = '{}' }",
+        "'accounts.json', 'metacache', 'prismlauncher.cfg' | ForEach-Object {",
+        "    if (Test-Path \"$persist_dir\\$_\") {",
+        "        Copy-Item \"$persist_dir\\$_\" \"$dir\\$_\" -Force",
+        "    } else {",
+        "        Set-Content -Path \"$dir\\$_\" -Value $contents[$_]",
+        "    }",
+        "}",
+        "Remove-Item -Path \"$dir\\prismlauncher_updater.exe\" -Force -ErrorAction Ignore"
+    ],
+    "bin": "prismlauncher.exe",
+    "shortcuts": [
+        [
+            "prismlauncher.exe",
+            "Prism Launcher Cracked"
+        ]
+    ],
+    "persist": [
+        "assets",
+        "cache",
+        "catpacks",
+        "icons",
+        "iconthemes",
+        "instances",
+        "java",
+        "libraries",
+        "logs",
+        "meta",
+        "mods",
+        "skins",
+        "themes",
+        "translations"
+    ],
+    "pre_uninstall": [
+        "'accounts.json', 'metacache', 'prismlauncher.cfg' | ForEach-Object {",
+        "    if (Test-Path -Path \"$dir\\$_\") {",
+        "        Copy-Item -Path \"$dir\\$_\" -Destination \"$persist_dir\\$_\" -Force",
+        "    }",
+        "}"
+    ],
+    "checkver": {
+        "github": "https://github.com/Diegiwg/PrismLauncher-Cracked"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/Diegiwg/PrismLauncher-Cracked/releases/download/$version/PrismLauncher-Windows-MSVC-Portable-$version.zip"
+            },
+            "arm64": {
+                "url": "https://github.com/Diegiwg/PrismLauncher-Cracked/releases/download/$version/PrismLauncher-Windows-MSVC-arm64-Portable-$version.zip"
+            }
+        }
+    }
+}
