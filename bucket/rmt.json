@@ -39,7 +39,7 @@
                 "url": "https://github.com/zclucas/RMT/releases/download/RMTv$version/RMTv$version_x64.zip"
             },
             "32bit": {
-                "url": "https://github.com/zclucas/RMT/releases/download/RMTv$version/RMTv$version_x32.zip"
+                "url": "https://github.com/zclucas/RMT/releases/download/RMTv$version/RMTv$version_x86.zip"
             }
         }
     }
