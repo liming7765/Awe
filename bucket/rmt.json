@@ -29,8 +29,9 @@
         "SettingOld"
     ],
     "checkver": {
-        "github": "https://github.com/zclucas/RMT",
-        "regex": "RMTv([\\d.]+)"
+        "url": "https://api.github.com/repos/zclucas/RMT/tags?per_page=1",
+        "jsonpath": "$[0].name",
+        "regex": "^RMTv([\\d.]+)$"
     },
     "autoupdate": {
         "architecture": {
