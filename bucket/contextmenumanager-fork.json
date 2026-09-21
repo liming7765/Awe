@@ -1,19 +1,16 @@
 {
-    "version": "3.6.2.2",
+    "version": "4.0.0.8",
     "description": "A Windows context menu manager (Portable).",
     "homepage": "https://github.com/Jack251970/ContextMenuManager",
-    "license": "MIT",
-    "notes": "Imports existing config from AppData if found, and ensures portability.",
+    "license": "GPL-3.0-only",
+    "notes": [
+        "Requires .NET 10 Desktop Runtime. For Windows 7/8/8.1 use version 3.6.2.2.",
+        "Imports existing config from AppData if found, and ensures portability."
+    ],
     "architecture": {
         "64bit": {
-            "url": [
-                "https://github.com/Jack251970/ContextMenuManager/releases/download/3.6.2.2/ContextMenuManager.exe",
-                "https://github.com/Jack251970/ContextMenuManager/releases/download/3.6.2.2/ContextMenuManager.dll.config"
-            ],
-            "hash": [
-                "2fcb39eaf1b84aa1ba91947b008c9ddb95597c1f9e4aab96aae81d4dc808762b",
-                "6f37aeeaa42d0ace1a5a5a14c7c921080eb6aadee495befb5bf8c324f0988f5f"
-            ]
+            "url": "https://github.com/Jack251970/ContextMenuManager/releases/download/4.0.0.8/ContextMenuManager.exe",
+            "hash": "937a48e01d303c6642eacf5fd16ce0c6873441239c3bacbfa53f445147b5c423"
         }
     },
     "bin": "ContextMenuManager.exe",
@@ -52,10 +49,7 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": [
-                    "https://github.com/Jack251970/ContextMenuManager/releases/download/$version/ContextMenuManager.exe",
-                    "https://github.com/Jack251970/ContextMenuManager/releases/download/$version/ContextMenuManager.dll.config"
-                ]
+                "url": "https://github.com/Jack251970/ContextMenuManager/releases/download/$version/ContextMenuManager.exe"
             }
         }
     }
