@@ -1,10 +1,10 @@
 {
-    "version": "1.3.14",
+    "version": "1.3.15",
     "description": "AriaNg, a modern web frontend making aria2 easier to use.",
     "homepage": "https://github.com/mayswind/AriaNg",
     "license": "MIT",
-    "url": "https://github.com/mayswind/AriaNg/releases/download/1.3.14/AriaNg-1.3.14-AllInOne.zip",
-    "hash": "65bc5ed3573ef05313ea953a5c5363c8b33a4996849b2986c78660eab1a9edb2",
+    "url": "https://github.com/mayswind/AriaNg/releases/download/1.3.15/AriaNg-1.3.15-AllInOne.zip",
+    "hash": "9918932af1ab0ae3924b938b1c5195b6491dacf15908ac0dc440fdba660ac280",
     "shortcuts": [
         [
             "index.html",
