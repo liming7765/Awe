@@ -1,6 +1,7 @@
+
 {
     "version": "1.2.2",
-    "description": "RMT (RuoMengTu) is a free, open-source macro tool built on AHKv2. Let the code handle the tedious work—you have more meaningful things to do.",
+    "description": "RMT (RuoMengTu) is a free, open-source macro automation tool based on AutoHotkey v2.",
     "homepage": "https://github.com/zclucas/RMT",
     "license": "AGPL-3.0",
     "architecture": {
@@ -14,8 +15,10 @@
         }
     },
     "pre_install": [
-        "Get-ChildItem \"$dir\\RMTv*.exe\" | Rename-Item -NewName 'RMT.exe' -ErrorAction SilentlyContinue",
-        "if (!(Test-Path \"$dir\\SettingOld\")) { New-Item \"$dir\\SettingOld\" -Type Directory }"
+        "$exe = Join-Path $dir \"RMTv$version.exe\"",
+        "if (!(Test-Path -LiteralPath $exe)) { throw \"Missing expected executable: $exe\" }",
+        "Rename-Item -LiteralPath $exe -NewName 'RMT.exe' -ErrorAction Stop",
+        "foreach ($name in @('Setting', 'SettingOld')) { $path = Join-Path $dir $name; if (!(Test-Path -LiteralPath $path)) { New-Item -ItemType Directory -Path $path -Force | Out-Null } }"
     ],
     "bin": "RMT.exe",
     "shortcuts": [
@@ -29,8 +32,8 @@
         "SettingOld"
     ],
     "checkver": {
-        "url": "https://api.github.com/repos/zclucas/RMT/tags?per_page=1",
-        "jsonpath": "$[0].name",
+        "url": "https://api.github.com/repos/zclucas/RMT/releases/latest",
+        "jsonpath": "$.tag_name",
         "regex": "^RMTv([\\d.]+)$"
     },
     "autoupdate": {
