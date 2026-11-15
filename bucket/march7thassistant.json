@@ -11,7 +11,10 @@
             "extract_dir": "March7thAssistant_full"
         }
     },
-    "bin": "March7th Launcher.exe",
+    "bin": [
+        "March7th Launcher.exe",
+        "m7a.exe"
+    ],
     "shortcuts": [
         [
             "March7th Launcher.exe",
@@ -21,27 +24,35 @@
     "persist": [
         "config",
         "settings",
-        "logs"
+        "logs",
+        "screenshots",
+        "3rdparty/WebBrowser/UserProfile"
     ],
     "pre_install": [
-        "ensure $persist_dir | Out-Null",
-        "foreach ($name in @('config.yaml', 'warp.json')) {",
+        "ensure \"$dir\\3rdparty\\WebBrowser\" | Out-Null",
+        "foreach ($name in @('config.yaml', 'warp.json', 'characters.json', 'characters.partial.json')) {",
         "    $source = Join-Path $persist_dir $name",
-        "    $destination = Join-Path $dir $name",
         "    if (Test-Path -LiteralPath $source -PathType Leaf) {",
-        "        Copy-Item -LiteralPath $source -Destination $destination -Force -ErrorAction Stop",
+        "        Copy-Item -LiteralPath $source -Destination (Join-Path $dir $name) -Force -ErrorAction Stop",
         "    }",
         "}"
     ],
     "pre_uninstall": [
         "ensure $persist_dir | Out-Null",
-        "foreach ($name in @('config.yaml', 'warp.json')) {",
+        "foreach ($name in @('config.yaml', 'warp.json', 'characters.json', 'characters.partial.json')) {",
         "    $source = Join-Path $dir $name",
-        "    $destination = Join-Path $persist_dir $name",
         "    if (Test-Path -LiteralPath $source -PathType Leaf) {",
-        "        Copy-Item -LiteralPath $source -Destination $destination -Force -ErrorAction Stop",
+        "        Copy-Item -LiteralPath $source -Destination (Join-Path $persist_dir $name) -Force -ErrorAction Stop",
         "    }",
+        "}",
+        "Get-ChildItem -LiteralPath $dir -File | Where-Object { $_.Name -match '^config\\.yaml\\.(bak(?:-.*)?|prefallback)$' } | ForEach-Object {",
+        "    Copy-Item -LiteralPath $_.FullName -Destination $persist_dir -Force -ErrorAction Stop",
         "}"
+    ],
+    "notes": [
+        "Close March7thAssistant before upgrading.",
+        "Use 'scoop update march7thassistant' instead of the application's built-in updater.",
+        "After upgrading, recreate any autostart task that points to an old version directory."
     ],
     "checkver": {
         "url": "https://api.github.com/repos/moesnow/March7thAssistant/releases/latest",
