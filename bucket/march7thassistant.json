@@ -1,3 +1,4 @@
+
 {
     "version": "2026.11.15",
     "description": "Honkai: Star Rail automation tool",
@@ -18,18 +19,29 @@
         ]
     ],
     "persist": [
-        "config.yaml",
-        "warp.json",
+        "config",
         "settings",
         "logs"
     ],
     "pre_install": [
-        "if (!(Test-Path \"$dir\\config.yaml\")) { New-Item \"$dir\\config.yaml\" -ItemType File | Out-Null }",
-        "if (!(Test-Path \"$dir\\warp.json\")) { New-Item \"$dir\\warp.json\" -ItemType File | Out-Null }"
+        "ensure $persist_dir | Out-Null",
+        "foreach ($name in @('config.yaml', 'warp.json')) {",
+        "    $source = Join-Path $persist_dir $name",
+        "    $destination = Join-Path $dir $name",
+        "    if (Test-Path -LiteralPath $source -PathType Leaf) {",
+        "        Copy-Item -LiteralPath $source -Destination $destination -Force -ErrorAction Stop",
+        "    }",
+        "}"
     ],
-    "post_install": [
-        "Remove-Item \"$dir\\config.yaml.original\" -Force -ErrorAction SilentlyContinue",
-        "Remove-Item \"$dir\\warp.json.original\" -Force -ErrorAction SilentlyContinue"
+    "pre_uninstall": [
+        "ensure $persist_dir | Out-Null",
+        "foreach ($name in @('config.yaml', 'warp.json')) {",
+        "    $source = Join-Path $dir $name",
+        "    $destination = Join-Path $persist_dir $name",
+        "    if (Test-Path -LiteralPath $source -PathType Leaf) {",
+        "        Copy-Item -LiteralPath $source -Destination $destination -Force -ErrorAction Stop",
+        "    }",
+        "}"
     ],
     "checkver": {
         "url": "https://api.github.com/repos/moesnow/March7thAssistant/releases/latest",
